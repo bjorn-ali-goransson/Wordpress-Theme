@@ -1,0 +1,11 @@
+{
+  "name": "Wordpress-Theme",
+  "version": "1.0.0",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "underscore": "^1.7.0"
+  },
+  "author": "",
+  "private": true
+}
