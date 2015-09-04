@@ -1,3 +1,3 @@
 call npm install
 call bower install
-call gulp
+call gulp deps
