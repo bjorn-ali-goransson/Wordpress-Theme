@@ -52,6 +52,12 @@ abstract class My_Widget extends WP_Widget {
 	function init(){}
 	
 	function register_title(){
+    foreach($this->fields as $field){
+      if($field['name'] == "title"){
+        return;
+      }
+    }
+
 		$field = new stdClass();
 		
 		$field->name = "title";
@@ -60,8 +66,6 @@ abstract class My_Widget extends WP_Widget {
 		$field->required = true;
 		
 		array_unshift($this->fields, $field);
-		
-		$this->has_title = true;
 	}
 	
 	function update( $new_instance, $old_instance ) {
