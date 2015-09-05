@@ -976,6 +976,20 @@ add_shortcode('icon', function($attributes, $content){
 
 
 
+/* GET OPTION */
+
+function my_option($key){
+  $options = get_option('my_settings');
+
+  if(!array_key_exists($key, $options)){
+    return NULL;
+  }
+
+  return $options[$key];
+}
+
+
+
 /* OTHER */
 
 add_theme_support('automatic-feed-links');
