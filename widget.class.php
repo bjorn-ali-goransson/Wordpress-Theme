@@ -1,6 +1,6 @@
 <?php
 
-abstract class HH_Widget extends WP_Widget {
+abstract class My_Widget extends WP_Widget {
 	protected $identifier = null;
 	protected $label = null;
 	protected $description = null;
@@ -9,7 +9,7 @@ abstract class HH_Widget extends WP_Widget {
 	protected $fields = array();
 	protected $defaults = array();
 	
-	function HH_Widget() {
+	function My_Widget() {
 		if($this->identifier == null){
 		  $this->identifier = strtolower(get_class($this));
 		}
@@ -355,41 +355,3 @@ abstract class HH_Widget extends WP_Widget {
 		echo "<hr/>";
 	}
 }
-
-add_action('admin_head', function() {
-  ?>
-  <script>
-    (function ($) {
-      $(document).on("click", 'input.choose-image', function (event) {
-        var button = $(this);
-
-        wp.media.editor.send.attachment = function (props, attachment) {
-          button.parent().siblings("input[type=\"hidden\"]").val(attachment.id);
-          button.parent().siblings("span.my-image").html('<img src="' + attachment.sizes.thumbnail.url + '" />');
-        }
-
-        wp.media.editor.open(this);
-        event.preventDefault();
-      });
-
-      // $('div.widgets-sortables').bind('sortstop', activate);
-
-    })(jQuery);
-  </script>
-  <?php
-});
-
-add_action('admin_enqueue_scripts', function($hook) {
-  if($hook == "widgets.php"){
-    wp_enqueue_media();
-  }
-});
-
-function myplugin_register_widgets() {
-  foreach (get_declared_classes() as $class) {
-    if (is_subclass_of($class, "HH_Widget"))
-      register_widget( $class );
-  }
-}
-
-add_action( 'widgets_init', 'myplugin_register_widgets' );
