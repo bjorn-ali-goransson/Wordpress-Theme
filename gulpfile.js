@@ -33,7 +33,7 @@ var rename = require('gulp-rename');
 var path = require('path');
 
 gulp.task('less', function() {
-    return gulp.src('./styles/*.less')  // only compile the entry file
+    return gulp.src('./styles/*.less')
         .pipe(plumber())
         .pipe(rename(function (path) {
           path.basename += ".less";
@@ -42,7 +42,7 @@ gulp.task('less', function() {
           globalVars: { 'themeurl': '\'/wp-content/themes/' + path.basename(__dirname) + '\'' }
         }))
         .pipe(prefix("last 8 version", "> 1%", "ie 8", "ie 7"), {cascade:true})
-        .pipe(gulp.dest('./styles/'))
+        .pipe(gulp.dest('./styles/compiled/'))
         .pipe(livereload());
 });
 gulp.task('watch', function() {

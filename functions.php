@@ -118,7 +118,12 @@ function add_my_style($name, $vendor = ''){
     $path .= $vendor;
     $path .= '/';
   } else {
-    $path .= 'styles/';
+    if(strpos($name, '.less') == strlen($name) - strlen('.less')){
+      $name .= '.css';
+      $path .= 'styles/compiled/';
+    } else {
+      $path .= 'styles/';
+    }
   }
 
   $path .= $name;
