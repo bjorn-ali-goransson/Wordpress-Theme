@@ -14,7 +14,6 @@
     <!-- Wordpress Head Items -->
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
     <style>
       [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
       .ng-cloak, .x-ng-cloak,
