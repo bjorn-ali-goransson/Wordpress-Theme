@@ -31,7 +31,7 @@ add_action('init', function(){
   //  'show_ui' => TRUE,
   //  'show_in_nav_menus' => TRUE,
   //  'labels' => array(
-  //    'name' => 'Avtal',
+  //    'name' => 'Agreements',
   //  ),
   //  'supports' => array('title'),
   //  //'has_archive' => 'my_slug', // Don't forget to visit Permalinks after changing this
