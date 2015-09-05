@@ -2,12 +2,6 @@
 
 
 
-/* APPLICATION LOGIC */
-
-require DIRNAME(__FILE__) . '/application.php';
-
-
-
 /* WIDGET BASE CLASS */
 
 require dirname(__FILE__) . "/widget.class.php";
@@ -47,6 +41,12 @@ add_action('widgets_init', function() {
       register_widget( $class );
   }
 });
+
+
+
+/* APPLICATION LOGIC */
+
+require DIRNAME(__FILE__) . '/application.php';
 
 
 
