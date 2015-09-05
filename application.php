@@ -1,5 +1,7 @@
 <?php
 
+force_login_to_site();
+
 
 
 /* SCRIPTS */

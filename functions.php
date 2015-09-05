@@ -1,11 +1,5 @@
 <?php
 
-add_action('template_redirect', function(){
- if(!is_user_logged_in() && is_front_page()){
-   auth_redirect();
- }
-});
-
 
 
 /* APPLICATION LOGIC */
@@ -1010,6 +1004,18 @@ function get_image_from_meta($post_id, $meta_key, $size = 'full'){
     'width' => $image[1],
     'height' => $image[2],
   );
+}
+
+
+
+/* FORCE LOGIN TO SITE */
+
+function force_login_to_site(){
+  add_action('template_redirect', function(){
+   if(!is_user_logged_in()){
+     auth_redirect();
+   }
+  });
 }
 
 
