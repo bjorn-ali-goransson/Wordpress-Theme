@@ -999,6 +999,17 @@ add_action("after_switch_theme", function(){
 
 
 
+/* GET IMAGE URL FROM META */
+
+function get_image_url_from_meta($post_id, $meta_key, $size = 'full'){
+  $image_id = get_post_meta($post_id, $meta_key, TRUE);
+  $image = wp_get_attachment_image_src($image_id, $size);
+
+  return $image;
+}
+
+
+
 /* OTHER */
 
 add_theme_support('automatic-feed-links');
