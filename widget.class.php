@@ -24,7 +24,7 @@ abstract class My_Widget extends WP_Widget {
 			$options["description"] = $this->description;
 		}
 		
-		$this->WP_Widget($this->identifier, $this->label, $options);
+		parent::__construct($this->identifier, $this->label, $options);
 		
 		if($this->has_title){
 			$this->register_title();
