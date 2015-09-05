@@ -999,9 +999,9 @@ add_action("after_switch_theme", function(){
 
 
 
-/* GET IMAGE URL FROM META */
+/* GET IMAGE FROM META */
 
-function get_image_url_from_meta($post_id, $meta_key, $size = 'full'){
+function get_image_from_meta($post_id, $meta_key, $size = 'full'){
   $image_id = get_post_meta($post_id, $meta_key, TRUE);
   $image = wp_get_attachment_image_src($image_id, $size);
 
