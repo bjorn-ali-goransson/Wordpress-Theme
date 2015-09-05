@@ -1005,7 +1005,11 @@ function get_image_url_from_meta($post_id, $meta_key, $size = 'full'){
   $image_id = get_post_meta($post_id, $meta_key, TRUE);
   $image = wp_get_attachment_image_src($image_id, $size);
 
-  return $image;
+  return (object)array(
+    'url' => $image[0],
+    'width' => $image[1],
+    'height' => $image[2],
+  );
 }
 
 
