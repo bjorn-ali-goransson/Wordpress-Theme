@@ -146,9 +146,6 @@ add_action('wp_enqueue_scripts', function(){
 
 add_theme_support('menus');
 register_nav_menu("top", "Top");
-register_nav_menu("footer-1", "Sidfot 1");
-register_nav_menu("footer-2", "Sidfot 2");
-register_nav_menu("left-menu", "Vänstermeny");
 
 
 
