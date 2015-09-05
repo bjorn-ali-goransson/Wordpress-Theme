@@ -5,11 +5,8 @@
 /* SCRIPTS */
 
 add_my_script('angular.min.js', 'angular');
-add_my_script('angular-resource.min.js', 'angular-resource');
-add_my_script('ng-file-upload.min.js', 'ng-file-upload');
 add_my_script('js/tab.js', 'bootstrap');
 add_my_script('lodash.min.js', 'lodash', array('underscore')); // always override underscore
-add_my_script('toastr.min.js', 'toastr', array('jquery'));
 add_my_script('main.js', '', array('lodash/lodash.min.js', 'jquery', 'jquery-ui-autocomplete'));
 
 add_action('admin_enqueue_scripts', function(){
@@ -21,7 +18,6 @@ add_action('admin_enqueue_scripts', function(){
 /* STYLES */
 
 add_my_style('main.less');
-add_my_style('toastr.min.css', 'toastr');
 
 
 
@@ -65,7 +61,7 @@ require 'application-options-page.php';
 
 
 
-/* OTHER */
+/* REMOVE ITEMS FROM UI */
 
 remove_item_from_admin_menu('index.php');
 remove_item_from_admin_menu('edit.php');
@@ -77,3 +73,8 @@ remove_item_from_admin_bar('new-content');
 remove_item_from_admin_bar('comments');
 remove_item_from_admin_bar('search');
 remove_item_from_admin_bar('wp-logo');
+
+
+
+/* OTHER */
+
