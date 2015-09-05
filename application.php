@@ -17,7 +17,7 @@ add_action('admin_enqueue_scripts', function(){
 
 /* STYLES */
 
-add_my_style('main.less');
+add_my_style('main.less.css');
 
 
 
