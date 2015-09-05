@@ -38,6 +38,14 @@ add_action('init', function(){
 
 
 
+/* IMAGE SIZES */
+
+// add_image_size('lg', 1700, 9999);
+// add_image_size('md', 1200, 9999);
+// add_image_size('sm', 900, 9999);
+
+
+
 /* APPLICATION FUNCTIONS */
 
 require 'application-functions.php';
