@@ -24,16 +24,16 @@ add_my_style('main.less');
 /* CUSTOM POST TYPES */
 
 add_action('init', function(){
-  register_post_type('agreement', array(
-    'public' => FALSE,
-    'show_ui' => TRUE,
-    'show_in_nav_menus' => TRUE,
-    'labels' => array(
-      'name' => 'Avtal',
-    ),
-    'supports' => array('title'),
-    //'has_archive' => 'my_slug', // Don't forget to visit Permalinks after changing this
-  ));
+  //register_post_type('agreement', array(
+  //  'public' => FALSE,
+  //  'show_ui' => TRUE,
+  //  'show_in_nav_menus' => TRUE,
+  //  'labels' => array(
+  //    'name' => 'Avtal',
+  //  ),
+  //  'supports' => array('title'),
+  //  //'has_archive' => 'my_slug', // Don't forget to visit Permalinks after changing this
+  //));
 });
 
 
