@@ -27,25 +27,44 @@ gulp.task('deps', function () {
 var less = require('gulp-less');
 var watch = require('gulp-watch');
 var prefix = require('gulp-autoprefixer');
-var plumber = require('gulp-plumber');
 var livereload = require('gulp-livereload');
 var rename = require('gulp-rename');
 var path = require('path');
 
-gulp.task('less', function() {
+gulp.task('less', wrapPipe(function(success, error) {
     return gulp.src('./styles/*.less')
-        .pipe(plumber())
         .pipe(rename(function (path) {
           path.basename += ".less";
         }))
-        .pipe(less({
-          globalVars: { 'themeurl': '\'/wp-content/themes/' + path.basename(__dirname) + '\'' }
-        }))
+        .pipe(
+          less({
+            globalVars: { 'themeurl': '\'/wp-content/themes/' + path.basename(__dirname) + '\'' }
+          })
+          .on('error', error)
+        )
         .pipe(prefix("last 8 version", "> 1%", "ie 8", "ie 7"), {cascade:true})
         .pipe(gulp.dest('./styles/compiled/'))
         .pipe(livereload());
-});
+}));
 gulp.task('watch', function() {
     gulp.watch('./**/*.less', ['less']);  // Watch all the .less files, then run the less task
 });
 
+
+
+/* WRAP PIPE */
+
+function wrapPipe(taskFn) { // https://gist.github.com/just-boris/89ee7c1829e87e2db04c
+  return function(done) {
+    var onSuccess = function() {
+      done();
+    };
+    var onError = function(err) {
+      done(err);
+    }
+    var outStream = taskFn(onSuccess, onError);
+    if(outStream && typeof outStream.on === 'function') {
+      outStream.on('end', onSuccess);
+    }
+  }
+}
