@@ -23,7 +23,6 @@
     </style>
     
     <?php echo_javascript_variable('siteUrl', get_bloginfo('url') . '/'); ?>
-    <?php echo_javascript_variable('currentUserId', get_current_user_id()); ?>
 
     <?php wp_head(); ?>
   </head>
