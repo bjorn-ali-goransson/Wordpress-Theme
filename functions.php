@@ -1158,6 +1158,10 @@ add_action('admin_init', function(){
 });
 
 add_action('admin_menu', function() {
+  if(!isset($GLOBALS['my_settings_fields'])){
+    return;
+  }
+  
   add_options_page('Custom options', 'Custom options', 'manage_options', 'my_settings', function() {
     ?>
       <div>
