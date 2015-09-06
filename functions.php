@@ -86,9 +86,9 @@ add_action('init', function(){
 
 
 
-/* ECHO HEADER VARIABLE */
+/* ECHO JAVASCRIPT VARIABLE */
 
-function echo_header_variable($variable_name, $value){
+function echo_javascript_variable($variable_name, $value){
   echo '<script>' . 'window.' . $variable_name . ' = ' . json_encode($value) . '</script>' . "\n";
 }
 
