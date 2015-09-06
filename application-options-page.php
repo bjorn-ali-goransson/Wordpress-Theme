@@ -21,8 +21,14 @@ add_text_field_to_settings('Copyright-notis', 'page_footer_copyright_notice');
 
 add_boolean_field_to_settings('Skicka ingen e-post utan spara den i systemet', 'send_no_emails_but_save_them_in_the_system');
 
+//
+
 function add_text_field_to_settings($title, $name){
   add_field_to_settings($title, $name, 'text');
+}
+
+function add_long_text_field_to_settings($title, $name){
+  add_field_to_settings($title, $name, 'long_text');
 }
 
 function add_number_field_to_settings($title, $name){
@@ -61,6 +67,18 @@ add_action('admin_init', function(){
         create_function('', '
           $options = get_option(\'my_settings\');
           echo \'<input type="text" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="\' . $options[\'' . $field->name . '\'] . \'">\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
+    if($field->type == 'long_text'){
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+          echo \'<textarea id="' . $field->name . '" name="my_settings[' . $field->name . ']">\' . $options[\'' . $field->name . '\'] . \'</textarea>\';
         '),
         'my_settings',
         'my_settings_main'
