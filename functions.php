@@ -1067,6 +1067,113 @@ function force_login_to_site(){
 
 
 
+/* CUSTOM OPTIONS */
+
+function add_text_field_to_settings($title, $name){
+  add_field_to_settings($title, $name, 'text');
+}
+
+function add_long_text_field_to_settings($title, $name){
+  add_field_to_settings($title, $name, 'long_text');
+}
+
+function add_number_field_to_settings($title, $name){
+  add_field_to_settings($title, $name, 'number');
+}
+
+function add_boolean_field_to_settings($title, $name){
+  add_field_to_settings($title, $name, 'boolean');
+}
+
+function add_field_to_settings($title, $name, $type){
+  if(!isset($GLOBALS['my_settings_fields'])){
+    $GLOBALS['my_settings_fields'] = array();
+  }
+
+  $GLOBALS['my_settings_fields'][] = (object)array(
+    'title' => $title,
+    'name' => $name,
+    'type' => $type,
+  );
+}
+
+add_action('admin_init', function(){
+  if(!isset($GLOBALS['my_settings_fields'])){
+    return;
+  }
+
+  register_setting( 'my_settings', 'my_settings', function($input){ return $input; });
+  add_settings_section('my_settings_main', 'Skräddarsydda inställningar', function() { }, 'my_settings');
+
+  foreach($GLOBALS['my_settings_fields'] as $field){
+    if($field->type == 'text'){
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+          echo \'<input type="text" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="\' . $options[\'' . $field->name . '\'] . \'">\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
+    if($field->type == 'long_text'){
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+          echo \'<textarea id="' . $field->name . '" name="my_settings[' . $field->name . ']">\' . $options[\'' . $field->name . '\'] . \'</textarea>\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
+    if($field->type == 'number'){
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+          echo \'<input type="number" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="\' . $options[\'' . $field->name . '\'] . \'">\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
+    if($field->type == 'boolean'){
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+          echo \'<input type="checkbox" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="true" \' . ($options[\'' . $field->name . '\'] == \'true\' ? \'checked\' : \'\') . \'>\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
+  }
+});
+
+add_action('admin_menu', function() {
+  add_options_page('Custom options', 'Custom options', 'manage_options', 'my_settings', function() {
+    ?>
+      <div>
+        <form action="options.php" method="post">
+          <?php settings_fields('my_settings'); ?>
+          <?php do_settings_sections('my_settings'); ?>
+ 
+          <input type="submit" class="button button-primary" value="<?php esc_attr_e('Save Changes'); ?>" />
+        </form>
+      </div>
+    <?php
+  });
+});
+
+
+
 /* OTHER */
 
 add_theme_support('automatic-feed-links');

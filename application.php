@@ -54,9 +54,13 @@ require 'application-functions.php';
 
 
 
-/* CUSTOM OPTIONS PAGE */
+/* CUSTOM OPTIONS */
 
-require 'application-options-page.php';
+
+
+/* CUSTOM OPTIONS */
+
+//add_long_text_field_to_settings('Footer text', 'footer_text');
 
 
 
