@@ -1175,6 +1175,8 @@ add_action('admin_init', function(){
             \'id\' => \'' . $field->name . '\',
             \'name\' => \'my_settings[' . $field->name . ']\',
             \'selected\' => $options[\'' . $field->name . '\'],
+            \'hide_empty\' => 0,
+            \'hierarchical\' => 1,
           ));
         '),
         'my_settings',
