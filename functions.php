@@ -1069,6 +1069,14 @@ function force_login_to_site(){
 
 /* CUSTOM OPTIONS */
 
+function add_category_field_to_settings($title, $name){
+  add_taxonomy_field_to_settings($title, $name, 'category');
+}
+
+function add_taxonomy_field_to_settings($title, $name, $taxonomy_name){
+  add_field_to_settings($title, $name, 'taxonomy_category');
+}
+
 function add_text_field_to_settings($title, $name){
   add_field_to_settings($title, $name, 'text');
 }
@@ -1149,6 +1157,25 @@ add_action('admin_init', function(){
         create_function('', '
           $options = get_option(\'my_settings\');
           echo \'<input type="checkbox" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="true" \' . ($options[\'' . $field->name . '\'] == \'true\' ? \'checked\' : \'\') . \'>\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
+    if(strpos($field->type, 'taxonomy_') === 0){
+      $taxonomy_type = substr($field->type, strlen('taxonomy_'));
+
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+          wp_dropdown_categories(array(
+            \'taxonomy\' => \'' . $taxonomy_type . '\',
+            \'id\' => \'' . $field->name . '\',
+            \'name\' => \'my_settings[' . $field->name . ']\',
+            \'selected\' => $options[\'' . $field->name . '\'],
+          ));
         '),
         'my_settings',
         'my_settings_main'
