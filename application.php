@@ -11,9 +11,7 @@ add_my_script('js/tab.js', 'bootstrap');
 add_my_script('lodash.min.js', 'lodash', array('underscore')); // always override underscore
 add_my_script('main.js', '', array('lodash/lodash.min.js', 'jquery', 'jquery-ui-autocomplete'));
 
-add_action('admin_enqueue_scripts', function(){
-  //wp_enqueue_script('my_admin_script_1', get_template_directory_uri() . '/scripts/admin.js', array('jquery', 'underscore'));
-});
+add_my_admin_script('admin.js', array('jquery', 'lodash/lodash.min.js'));
 
 
 

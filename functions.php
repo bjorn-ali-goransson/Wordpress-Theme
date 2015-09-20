@@ -106,6 +106,16 @@ function add_my_script($name, $vendor = '', $dependencies = array('jquery')){
   $GLOBALS['my_scripts'][] = $my_script_object;
 }
 
+function add_my_admin_script($name, $vendor = '', $dependencies = array('jquery')){
+  $my_script_object = get_my_script_object($name, $vendor, $dependencies);
+
+  if(!isset($GLOBALS['my_admin_scripts'])){
+    $GLOBALS['my_admin_scripts'] = array();
+  }
+
+  $GLOBALS['my_admin_scripts'][] = $my_script_object;
+}
+
 
   
 function get_my_script_object($name, $vendor = '', $dependencies = array('jquery')){
@@ -140,43 +150,20 @@ add_action('wp_enqueue_scripts', function(){
     }
   }
 });
+add_action('admin_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_scripts'])){
+    foreach($GLOBALS['my_scripts'] as $script){
+      $url = $script->path;
 
-
-
-/* ADD MY STYLE */
-
-function add_my_style($name, $vendor = ''){
-  $path = '/';
-
-  if($vendor != ''){
-    $path .= 'vendor/';
-    $path .= $vendor;
-    $path .= '/';
-  } else {
-    if(strpos($name, '.less') == strlen($name) - strlen('.less')){
-      $name .= '.css';
-      $path .= 'styles/compiled/';
-    } else {
-      $path .= 'styles/';
+      wp_register_script($script->id, $url, $script->dependencies, $script->version);
     }
   }
 
-  $path .= $name;
+  if(isset($GLOBALS['my_admin_scripts'])){
+    foreach($GLOBALS['my_admin_scripts'] as $script){
+      $url = $script->path;
 
-  if(!isset($GLOBALS['my_styles'])){
-    $GLOBALS['my_styles'] = array();
-  }
-
-  $GLOBALS['my_styles'][] = (object)array(
-    'path' => $path,
-    'version' => @filemtime(dirname(__FILE__) . $path),
-  );
-}
-
-add_action('wp_enqueue_scripts', function(){
-  if(isset($GLOBALS['my_styles'])){
-    foreach($GLOBALS['my_styles'] as $style){
-      wp_enqueue_style(preg_replace('@[^a-z]+@', '-', $style->path), get_template_directory_uri() . $style->path, NULL, $style->version);
+      wp_enqueue_script($script->id, $url, $script->dependencies, $script->version);
     }
   }
 });
