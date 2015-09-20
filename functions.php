@@ -96,7 +96,7 @@ function echo_javascript_variable($variable_name, $value){
 
 /* ADD MY SCRIPT */
 
-function add_my_script($name, $vendor = '', $dependencies = array('jquery')){
+function add_my_script($name, $vendor = NULL, $dependencies = NULL){
   $my_script_object = get_my_script_object($name, $vendor, $dependencies);
 
   if(!isset($GLOBALS['my_scripts'])){
@@ -106,7 +106,7 @@ function add_my_script($name, $vendor = '', $dependencies = array('jquery')){
   $GLOBALS['my_scripts'][] = $my_script_object;
 }
 
-function add_my_admin_script($name, $vendor = '', $dependencies = array('jquery')){
+function add_my_admin_script($name, $vendor = NULL, $dependencies = NULL){
   $my_script_object = get_my_script_object($name, $vendor, $dependencies);
 
   if(!isset($GLOBALS['my_admin_scripts'])){
@@ -115,10 +115,26 @@ function add_my_admin_script($name, $vendor = '', $dependencies = array('jquery'
 
   $GLOBALS['my_admin_scripts'][] = $my_script_object;
 }
-
-
   
-function get_my_script_object($name, $vendor = '', $dependencies = array('jquery')){
+function get_my_script_object($name, $arg2 = NULL, $arg3 = NULL){
+  if($arg2 == NULL && $arg3 == NULL){
+    $vendor = '';
+    $dependencies = array('jquery');
+  }
+  if($arg2 != NULL && $arg3 == NULL){
+    if(is_array($arg2)){
+      $vendor = '';
+      $dependencies = $arg2;
+    } else {
+      $vendor = $arg2;
+      $dependencies = '';
+    }
+  }
+  if($arg2 != NULL && $arg3 != NULL){
+    $vendor = $arg2;
+    $dependencies = $arg3;
+  }
+
   $path = '/';
 
   if($vendor != ''){
@@ -133,37 +149,30 @@ function get_my_script_object($name, $vendor = '', $dependencies = array('jquery
 
   return (object)array(
     'id' => (empty($vendor) ? '' : $vendor . '/') . $name,
-    'path' => get_template_directory_uri() . $path,
+    'url' => get_template_directory_uri() . $path,
     'dependencies' => $dependencies,
     'version' => @filemtime(dirname(__FILE__) . $path),
   );
 }
 
-
-
 add_action('wp_enqueue_scripts', function(){
   if(isset($GLOBALS['my_scripts'])){
     foreach($GLOBALS['my_scripts'] as $script){
-      $url = $script->path;
-
-      wp_enqueue_script($script->id, $url, $script->dependencies, $script->version);
+      wp_enqueue_script($script->id, $script->url, $script->dependencies, $script->version);
     }
   }
 });
+
 add_action('admin_enqueue_scripts', function(){
   if(isset($GLOBALS['my_scripts'])){
     foreach($GLOBALS['my_scripts'] as $script){
-      $url = $script->path;
-
-      wp_register_script($script->id, $url, $script->dependencies, $script->version);
+      wp_register_script($script->id, $script->url, $script->dependencies, $script->version);
     }
   }
 
   if(isset($GLOBALS['my_admin_scripts'])){
     foreach($GLOBALS['my_admin_scripts'] as $script){
-      $url = $script->path;
-
-      wp_enqueue_script($script->id, $url, $script->dependencies, $script->version);
+      wp_enqueue_script($script->id, $script->url, $script->dependencies, $script->version);
     }
   }
 });
