@@ -191,6 +191,16 @@ function add_my_style($name, $vendor = ''){
   $GLOBALS['my_styles'][] = $style_object;
 }
 
+function add_my_admin_style($name, $vendor = ''){
+  $style_object = get_my_style_object($name, $vendor);
+
+  if(!isset($GLOBALS['my_admin_styles'])){
+    $GLOBALS['my_admin_styles'] = array();
+  }
+
+  $GLOBALS['my_admin_styles'][] = $style_object;
+}
+
 function get_my_style_object($name, $vendor = ''){
   $path = '/';
 
@@ -210,7 +220,8 @@ function get_my_style_object($name, $vendor = ''){
   $path .= $name;
 
   return (object)array(
-    'path' => $path,
+    'id' => (empty($vendor) ? '' : $vendor . '/') . $name,
+    'url' => get_template_directory_uri() . $path,
     'version' => @filemtime(dirname(__FILE__) . $path),
   );
 }
@@ -218,7 +229,15 @@ function get_my_style_object($name, $vendor = ''){
 add_action('wp_enqueue_scripts', function(){
   if(isset($GLOBALS['my_styles'])){
     foreach($GLOBALS['my_styles'] as $style){
-      wp_enqueue_style(preg_replace('@[^a-z]+@', '-', $style->path), get_template_directory_uri() . $style->path, NULL, $style->version);
+      wp_enqueue_style($style->id, $style->url, NULL, $style->version);
+    }
+  }
+});
+
+add_action('admin_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_admin_styles'])){
+    foreach($GLOBALS['my_admin_styles'] as $style){
+      wp_enqueue_style($style->id, $style->url, NULL, $style->version);
     }
   }
 });
