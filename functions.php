@@ -68,8 +68,12 @@ add_action('init', function(){
     return;
   }
 
+  $site_url = get_option('home');
+  $slash_position = strpos($site_url, '/', strlen('https://'));
+  $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
+  
   foreach($GLOBALS['my-routes'] as $route){
-    if(strpos($_SERVER['REQUEST_URI'], $route->url) !== 0){
+    if(strpos($_SERVER['REQUEST_URI'], $site_url . $route->url) !== 0){
       continue;
     }
 
