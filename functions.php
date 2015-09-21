@@ -229,7 +229,7 @@ function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
     'id' => (empty($vendor) ? '' : $vendor . '/') . $name,
     'url' => get_template_directory_uri() . $path,
     'dependencies' => $dependencies,
-    'version' => $_SERVER["HTTP_HOST"] != 'localhost' ? @filemtime(dirname(__FILE__) . $path) : NULL,
+    'version' => strpos($_SERVER["HTTP_HOST"], 'localhost') === FALSE ? @filemtime(dirname(__FILE__) . $path) : NULL,
   );
 }
 
