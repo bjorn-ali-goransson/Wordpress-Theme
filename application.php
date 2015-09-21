@@ -18,6 +18,7 @@ add_my_admin_script('admin.js', array('jquery', 'lodash/lodash.min.js'));
 /* STYLES */
 
 add_my_style('main.less');
+add_my_admin_style('admin.less');
 
 
 
