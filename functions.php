@@ -340,30 +340,9 @@ add_action( 'admin_bar_menu', function( $wp_admin_bar ) {
 
 add_action('admin_enqueue_scripts', function(){
   if(is_admin() && in_array($GLOBALS['pagenow'], array("post.php")) && $_GET['action'] == 'edit'){
-    $path = '/styles/wp-editor-styles.less';
-    $src = get_template_directory_uri() . $path;
-
-    $handle = preg_replace('@[^a-z]+@', '-', $path);
+    return;
     
-    //
-
-    $compilation_units = get_option('pm-less.js compilation_units');
-
-    if($compilation_units == FALSE){
-      $compilation_units = new stdClass;
-    }
-
-    $compilation_units->$src = "{$handle}.css";
-
-    update_option('pm-less.js compilation_units', $compilation_units);
-
-    //
-    
-  	$upload_dir = wp_upload_dir();
-
-		$dir = apply_filters( 'pm_less_js_cache_url', path_join( $upload_dir[ 'baseurl' ], 'pm-less.js-cache' ) );
-    
-    add_editor_style("$dir/{$handle}.css");
+    add_editor_style(" ... ");
   }
 });
 
@@ -1157,7 +1136,7 @@ function get_image($image_id, $size = 'full'){
 function force_login_to_site(){
   add_action('template_redirect', function(){
    if(!is_user_logged_in()){
-     auth_redirect();
+     //auth_redirect();
    }
   });
 }
