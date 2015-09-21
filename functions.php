@@ -96,30 +96,97 @@ function echo_javascript_variable($variable_name, $value){
 
 /* ADD MY SCRIPT */
 
-function add_my_script($name, $vendor = NULL, $dependencies = NULL){
-  $my_script_object = get_my_script_object($name, $vendor, $dependencies);
-
+function add_my_script($name, $arg2 = NULL, $arg3 = NULL){
   if(!isset($GLOBALS['my_scripts'])){
     $GLOBALS['my_scripts'] = array();
   }
 
-  $GLOBALS['my_scripts'][] = $my_script_object;
+  $GLOBALS['my_scripts'][] = get_my_script_or_style_object($name, $arg2, $arg3);
 }
 
-function add_my_admin_script($name, $vendor = NULL, $dependencies = NULL){
-  $my_script_object = get_my_script_object($name, $vendor, $dependencies);
-
+function add_my_admin_script($name, $arg2 = NULL, $arg3 = NULL){
   if(!isset($GLOBALS['my_admin_scripts'])){
     $GLOBALS['my_admin_scripts'] = array();
   }
 
-  $GLOBALS['my_admin_scripts'][] = $my_script_object;
+  $GLOBALS['my_admin_scripts'][] = get_my_script_or_style_object($name, $arg2, $arg3);
 }
+
+add_action('wp_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_scripts'])){
+    foreach($GLOBALS['my_scripts'] as $object){
+      wp_enqueue_script($object->id, $object->url, $object->dependencies, $object->version);
+    }
+  }
+});
+
+add_action('admin_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_scripts'])){
+    foreach($GLOBALS['my_scripts'] as $object){
+      wp_register_script($object->id, $object->url, $object->dependencies, $object->version);
+    }
+  }
+
+  if(isset($GLOBALS['my_admin_scripts'])){
+    foreach($GLOBALS['my_admin_scripts'] as $object){
+      wp_enqueue_script($object->id, $object->url, $object->dependencies, $object->version);
+    }
+  }
+});
+
+
+
+/* ADD MY STYLE */
+
+function add_my_style($name, $arg2 = NULL, $arg3 = NULL){
+  if(!isset($GLOBALS['my_styles'])){
+    $GLOBALS['my_styles'] = array();
+  }
+
+  $GLOBALS['my_styles'][] = get_my_script_or_style_object($name, $arg2, $arg3);
+}
+
+function add_my_admin_style($name, $arg2 = NULL, $arg3 = NULL){
+  if(!isset($GLOBALS['my_admin_styles'])){
+    $GLOBALS['my_admin_styles'] = array();
+  }
+
+  $GLOBALS['my_admin_styles'][] = get_my_script_or_style_object($name, $arg2, $arg3);
+}
+
+add_action('wp_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_styles'])){
+    foreach($GLOBALS['my_styles'] as $object){
+      wp_enqueue_style($object->id, $object->url, NULL, $object->version);
+    }
+  }
+});
+
+add_action('admin_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_styles'])){
+    foreach($GLOBALS['my_styles'] as $object){
+      wp_register_style($object->id, $object->url, NULL, $object->version);
+    }
+  }
+
+  if(isset($GLOBALS['my_admin_styles'])){
+    foreach($GLOBALS['my_admin_styles'] as $object){
+      wp_enqueue_style($object->id, $object->url, NULL, $object->version);
+    }
+  }
+});
+
+
+
+/* GET MY SCRIPT OR STYLE OBJECT */
   
-function get_my_script_object($name, $arg2 = NULL, $arg3 = NULL){
+function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
+  $is_script = strrpos($name, '.js', 0) === strlen($name) - strlen('.js');
+  $is_less = strrpos($name, '.less', 0) === strlen($name) - strlen('.less');
+  
   if($arg2 == NULL && $arg3 == NULL){
     $vendor = '';
-    $dependencies = array('jquery');
+    $dependencies = '';
   }
   if($arg2 != NULL && $arg3 == NULL){
     if(is_array($arg2)){
@@ -142,7 +209,18 @@ function get_my_script_object($name, $arg2 = NULL, $arg3 = NULL){
     $path .= $vendor;
     $path .= '/';
   } else {
-    $path .= 'scripts/';
+    if($is_less){
+      $name .= '.css';
+      $path .= 'styles/compiled/';
+    } else if($is_script) {
+      $path .= 'scripts/';
+    } else {
+      $path .= 'styles/';
+    }
+  }
+
+  if($is_script && $dependencies == ''){
+    $dependencies = array('jquery');
   }
 
   $path .= $name;
@@ -151,96 +229,9 @@ function get_my_script_object($name, $arg2 = NULL, $arg3 = NULL){
     'id' => (empty($vendor) ? '' : $vendor . '/') . $name,
     'url' => get_template_directory_uri() . $path,
     'dependencies' => $dependencies,
-    'version' => @filemtime(dirname(__FILE__) . $path),
+    'version' => $_SERVER["HTTP_HOST"] != 'localhost' ? @filemtime(dirname(__FILE__) . $path) : NULL,
   );
 }
-
-add_action('wp_enqueue_scripts', function(){
-  if(isset($GLOBALS['my_scripts'])){
-    foreach($GLOBALS['my_scripts'] as $script){
-      wp_enqueue_script($script->id, $script->url, $script->dependencies, $script->version);
-    }
-  }
-});
-
-add_action('admin_enqueue_scripts', function(){
-  if(isset($GLOBALS['my_scripts'])){
-    foreach($GLOBALS['my_scripts'] as $script){
-      wp_register_script($script->id, $script->url, $script->dependencies, $script->version);
-    }
-  }
-
-  if(isset($GLOBALS['my_admin_scripts'])){
-    foreach($GLOBALS['my_admin_scripts'] as $script){
-      wp_enqueue_script($script->id, $script->url, $script->dependencies, $script->version);
-    }
-  }
-});
-
-
-
-/* ADD MY STYLE */
-
-function add_my_style($name, $vendor = ''){
-  $style_object = get_my_style_object($name, $vendor);
-
-  if(!isset($GLOBALS['my_styles'])){
-    $GLOBALS['my_styles'] = array();
-  }
-
-  $GLOBALS['my_styles'][] = $style_object;
-}
-
-function add_my_admin_style($name, $vendor = ''){
-  $style_object = get_my_style_object($name, $vendor);
-
-  if(!isset($GLOBALS['my_admin_styles'])){
-    $GLOBALS['my_admin_styles'] = array();
-  }
-
-  $GLOBALS['my_admin_styles'][] = $style_object;
-}
-
-function get_my_style_object($name, $vendor = ''){
-  $path = '/';
-
-  if($vendor != ''){
-    $path .= 'vendor/';
-    $path .= $vendor;
-    $path .= '/';
-  } else {
-    if(strpos($name, '.less') == strlen($name) - strlen('.less')){
-      $name .= '.css';
-      $path .= 'styles/compiled/';
-    } else {
-      $path .= 'styles/';
-    }
-  }
-
-  $path .= $name;
-
-  return (object)array(
-    'id' => (empty($vendor) ? '' : $vendor . '/') . $name,
-    'url' => get_template_directory_uri() . $path,
-    'version' => @filemtime(dirname(__FILE__) . $path),
-  );
-}
-
-add_action('wp_enqueue_scripts', function(){
-  if(isset($GLOBALS['my_styles'])){
-    foreach($GLOBALS['my_styles'] as $style){
-      wp_enqueue_style($style->id, $style->url, NULL, $style->version);
-    }
-  }
-});
-
-add_action('admin_enqueue_scripts', function(){
-  if(isset($GLOBALS['my_admin_styles'])){
-    foreach($GLOBALS['my_admin_styles'] as $style){
-      wp_enqueue_style($style->id, $style->url, NULL, $style->version);
-    }
-  }
-});
 
 
 
