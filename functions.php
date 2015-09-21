@@ -52,14 +52,23 @@ require DIRNAME(__FILE__) . '/application.php';
 
 /* ADD ROUTE */
 
-function add_my_route($url, $callback){
+function add_my_route($url, $arg2){
   if(!isset($GLOBALS['my-routes'])){
     $GLOBALS['my-routes'] = array();
+  }
+
+  if(is_callable($arg2)){
+    $callback = $arg2;
+    $path = NULL;
+  } else {
+    $callback = NULL;
+    $path = dirname(__FILE__) . '/' . $arg2;
   }
 
   $GLOBALS['my-routes'][] = (object)array(
     'url' => $url,
     'callback' => $callback,
+    'path' => $path,
   );
 }
 
@@ -81,9 +90,15 @@ add_action('init', function(){
       continue;
     }
 
-    $callback = $route->callback;
+    if($route->callback){
+      $callback = $route->callback;
+      $callback();
+    }
 
-    $callback();
+    if($route->path){
+      require $route->path;
+    }
+
     die;
   }
 });
