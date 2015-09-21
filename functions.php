@@ -69,7 +69,7 @@ add_action('init', function(){
   }
 
   foreach($GLOBALS['my-routes'] as $route){
-    if(strpos($_SERVER['REQUEST_URI'], $route->url) === FALSE){
+    if(strpos($_SERVER['REQUEST_URI'], $route->url) !== 0){
       continue;
     }
 
