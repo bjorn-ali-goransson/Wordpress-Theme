@@ -179,6 +179,52 @@ add_action('admin_enqueue_scripts', function(){
 
 
 
+/* ADD MY STYLE */
+
+function add_my_style($name, $vendor = ''){
+  $style_object = get_my_style_object($name, $vendor);
+
+  if(!isset($GLOBALS['my_styles'])){
+    $GLOBALS['my_styles'] = array();
+  }
+
+  $GLOBALS['my_styles'][] = $style_object;
+}
+
+function get_my_style_object($name, $vendor = ''){
+  $path = '/';
+
+  if($vendor != ''){
+    $path .= 'vendor/';
+    $path .= $vendor;
+    $path .= '/';
+  } else {
+    if(strpos($name, '.less') == strlen($name) - strlen('.less')){
+      $name .= '.css';
+      $path .= 'styles/compiled/';
+    } else {
+      $path .= 'styles/';
+    }
+  }
+
+  $path .= $name;
+
+  return (object)array(
+    'path' => $path,
+    'version' => @filemtime(dirname(__FILE__) . $path),
+  );
+}
+
+add_action('wp_enqueue_scripts', function(){
+  if(isset($GLOBALS['my_styles'])){
+    foreach($GLOBALS['my_styles'] as $style){
+      wp_enqueue_style(preg_replace('@[^a-z]+@', '-', $style->path), get_template_directory_uri() . $style->path, NULL, $style->version);
+    }
+  }
+});
+
+
+
 /* MENUS */
 
 add_theme_support('menus');
