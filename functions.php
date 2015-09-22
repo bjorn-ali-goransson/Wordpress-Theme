@@ -1136,7 +1136,7 @@ function add_category_field_to_settings($title, $name){
 }
 
 function add_taxonomy_field_to_settings($title, $name, $taxonomy_name){
-  add_field_to_settings($title, $name, 'taxonomy_category');
+  add_field_to_settings($title, $name, 'taxonomy_' . $taxonomy_name);
 }
 
 function add_text_field_to_settings($title, $name){
