@@ -1135,6 +1135,10 @@ function add_category_field_to_settings($title, $name){
   add_taxonomy_field_to_settings($title, $name, 'category');
 }
 
+function add_post_field_to_settings($title, $name, $post_type){
+  add_field_to_settings($title, $name, 'post_' . $post_type);
+}
+
 function add_taxonomy_field_to_settings($title, $name, $taxonomy_name){
   add_field_to_settings($title, $name, 'taxonomy_' . $taxonomy_name);
 }
@@ -1245,6 +1249,27 @@ add_action('admin_init', function(){
         'my_settings_main'
       );
     }
+    if(strpos($field->type, 'post_') === 0){
+      $post_type = substr($field->type, strlen('post_'));
+      
+      add_settings_field(
+        $field->name,
+        $field->title,
+        create_function('', '
+          $options = get_option(\'my_settings\');
+
+          echo \'<select id="' . $field->name . '" name="my_settings[' . $field->name . ']">\';
+
+          foreach(get_posts(array(\'post_type\' => \'' . $post_type . '\', \'nopaging\' => TRUE)) as $post){
+            echo \'<option value="\' . $post->ID . \'"\' . ($options[\'' . $field->name . '\'] == $post->ID ? \' selected="selected"\' : \'\') . \'>\' . $post->post_title . \'</option>\';
+          }
+
+          echo \'</select>\';
+        '),
+        'my_settings',
+        'my_settings_main'
+      );
+    }
   }
 });
 
@@ -1266,6 +1291,20 @@ add_action('admin_menu', function() {
     <?php
   });
 });
+
+
+
+/* GET OPTION */
+
+function get_my_option($key){
+  $options = get_option('my_settings');
+
+  if(!array_key_exists($key, $options)){
+    return NULL;
+  }
+
+  return $options[$key];
+}
 
 
 
