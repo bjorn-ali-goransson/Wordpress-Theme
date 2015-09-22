@@ -1086,7 +1086,7 @@ add_shortcode('icon', function($attributes, $content){
 
 /* GET OPTION */
 
-function my_option($key){
+function get_my_option($key){
   $options = get_option('my_settings');
 
   if(!array_key_exists($key, $options)){
