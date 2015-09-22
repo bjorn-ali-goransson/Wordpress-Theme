@@ -1084,20 +1084,6 @@ add_shortcode('icon', function($attributes, $content){
 
 
 
-/* GET OPTION */
-
-function get_my_option($key){
-  $options = get_option('my_settings');
-
-  if(!array_key_exists($key, $options)){
-    return NULL;
-  }
-
-  return $options[$key];
-}
-
-
-
 /* TRASH DEFAULT CONTENT */
 
 add_action("after_switch_theme", function(){
@@ -1280,6 +1266,20 @@ add_action('admin_menu', function() {
     <?php
   });
 });
+
+
+
+/* GET OPTION */
+
+function get_my_option($key){
+  $options = get_option('my_settings');
+
+  if(!array_key_exists($key, $options)){
+    return NULL;
+  }
+
+  return $options[$key];
+}
 
 
 
