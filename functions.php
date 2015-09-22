@@ -1125,18 +1125,6 @@ function get_image($image_id, $size = 'full'){
 
 
 
-/* FORCE LOGIN TO SITE */
-
-function force_login_to_site(){
-  add_action('template_redirect', function(){
-   if(!is_user_logged_in()){
-     //auth_redirect();
-   }
-  });
-}
-
-
-
 /* OTHER */
 
 add_theme_support('automatic-feed-links');
