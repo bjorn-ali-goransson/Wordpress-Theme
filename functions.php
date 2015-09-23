@@ -158,6 +158,19 @@ function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
     $dependencies = $arg3;
   }
 
+  if(strpos($name, 'http://') === 0 || strpos($name, 'https://') === 0){
+    return (object)array(
+      'id' => $name,
+      'url' => $name,
+      'dependencies' => is_array($dependencies) ?
+        $dependencies :
+        $is_script ?
+        array('jquery') :
+        NULL,
+      'version' => NULL,
+    );
+  }
+
   $path = '/';
 
   if($vendor != ''){
