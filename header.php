@@ -27,6 +27,6 @@
     <?php wp_head(); ?>
   </head>
 <body ng-controller="Main" <?php body_class('no-js'); ?>><script>document.body.className = document.body.className.replace(" no-js", "").replace("no-js ", "");</script>
-  <!--[if lt IE 7]>
-    <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a></p>
+  <!--[if lt IE 9]>
+    <div class="alert alert-warning"><div class="container">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a></div></div>
   <![endif]-->
