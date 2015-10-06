@@ -11,6 +11,8 @@ Features
 * Bootstrap 3 and Font Awesome included with Bower (just run setup.bat)
 * Gives you the site typography in the TinyMCE WYSIWYG editor
 * Removes the "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
+* *Function modules*: Drop any php file inside `functions/`, and it will be required (`once`) before `application.php`
+* *Application modules*: Drop any php file inside `application/`, and it will be required (`once`) after `application.php`
 
 Instructions
 ------------
