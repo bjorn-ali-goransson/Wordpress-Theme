@@ -1,8 +1,8 @@
 <?php
-  
 
 
-/* LOAD MODULES */
+
+/* LOAD FUNCTION MODULES */
 
 foreach(glob(dirname(__FILE__) . '/functions/*.php') as $filename){
   require_once $filename;
