@@ -2,7 +2,7 @@
 
 
 
-/* REMOVE ITEMS FROM ADMIN MENU */
+/* REMOVE ITEM FROM ADMIN MENU */
 
 function remove_item_from_admin_menu($slug){
   if(!isset($GLOBALS['remove_items_from_admin_menu'])){
@@ -22,7 +22,7 @@ add_action('admin_menu', function() {
 
 
 
-/* REMOVE ITEMS FROM ADMIN BAR */
+/* REMOVE ITEM FROM ADMIN BAR */
 
 function remove_item_from_admin_bar($slug){
   if(!isset($GLOBALS['remove_items_from_admin_bar'])){
