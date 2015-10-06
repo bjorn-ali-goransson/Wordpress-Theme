@@ -38,6 +38,24 @@ add_shortcode('hide_for_mobile', function($attributes, $content){ return get_htm
 
 
 
+/* TRIM LEADING AND TRAILING P TAGS */
+
+function trim_leading_and_trailing_p_tags($content){
+  $content = trim($content);
+
+  if(strpos($content, '</p>') === 0){
+    $content = substr($content, strlen('</p>'));
+  }
+
+  if(strrpos($content, '<p>') == strlen($content) - strlen('<p>')){
+    $content = substr($content, 0, strlen($content) - strlen('<p>'));
+  }
+
+  return trim($content);
+}
+
+
+
 /* OTHER */
 
 add_shortcode('link_button', function($attributes, $content){ return get_html_element('btn btn-primary', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content)), 'a'); });
