@@ -8,6 +8,7 @@ To see why I like this, check out `application.php`.
 Features
 --------
 
+* Bootstrap 3 and Font Awesome included with Bower (just run setup.bat)
 * Gives you the site typography in the TinyMCE WYSIWYG editor
 * Removes the "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
 
