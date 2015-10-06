@@ -31,38 +31,7 @@ add_shortcode('one_sixth', function($attributes, $content){ return get_html_elem
 
 
 
-/* RESPONSIVE COLUMNS */
+/* RESPONSIVE UTILITIES */
 
-add_shortcode('responsive_column_1', 'responsive_column_shortcode');
-add_shortcode('responsive_column_2', 'responsive_column_shortcode');
-
-function responsive_column_shortcode($attributes, $content, $shortcode_name){
-  $attributes_output = '';
-
-  foreach($attributes as $key => $value){
-    $attributes_output .= ' ';
-    $attributes_output .= $key.'="'.$value.'"';
-  }
-
-  $column_content = do_shortcode(trim_leading_and_trailing_p_tags($content));
-
-  if(strpos($column_content, '<form') !== FALSE){
-    $column_content = unwrap_element_from_element($column_content, 'form', 'p');
-  }
-  
-  $column_content = unwrap_element_from_element($column_content, 'p', 'p');
-
-  $output = '';
-
-  if($shortcode_name == 'responsive_column_1'){
-    $output .= '<div class="responsive-columns">';
-  }
-  
-  $output .= '<div class="responsive-column' . $responsive_class . '" ' . $attributes_output . '>' . $column_content . '</div>';
-
-  if($shortcode_name == 'responsive_column_2'){
-    $output .= '</div>';
-  }
-
-  return $output;
-}
+add_shortcode('show_for_mobile', function($attributes, $content){ return get_html_element('hidden-md hidden-lg hidden-xl', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content))); });
+add_shortcode('hide_for_mobile', function($attributes, $content){ return get_html_element('hidden-xs hidden-sm', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content))); });
