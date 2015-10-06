@@ -1,7 +1,9 @@
 Wordpress theme
 ===============
 
-For project-specific code, use `application.php` and `application-functions.php`. If you want to add functions generic to your work in general, use `functions.php`, or even better, add your own function module by putting the function in a `.php` file in `functions/`.
+For project-specific code, use `application.php` and `application-functions.php`.
+
+If you want to add functions generic to your work in general, use `functions.php`, or even better, add your own function module by putting the function in a `.php` file in `functions/`.
 
 To see why I like this, check out `application.php`.
 
