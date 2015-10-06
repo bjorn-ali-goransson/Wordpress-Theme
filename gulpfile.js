@@ -7,7 +7,7 @@ var _ = require('underscore');
 var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
 
 gulp.task('clean', function(){
-  return del('ClientResources/Vendor/**/*');
+  return del('vendor/**/*');
 });
 
 gulp.task('deps', ['clean'], function () {
@@ -25,7 +25,7 @@ gulp.task('deps', ['clean'], function () {
           '!**/src/**/*'
       ])
   )
-  .pipe(gulp.dest('ClientResources/Vendor'));
+  .pipe(gulp.dest('vendor'));
 });
 
 var less = require('gulp-less');
