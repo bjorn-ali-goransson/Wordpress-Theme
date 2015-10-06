@@ -42,9 +42,9 @@ function echo_javascript_variable($variable_name, $value){
 
 add_action('admin_enqueue_scripts', function(){
   if(is_admin() && in_array($GLOBALS['pagenow'], array("post.php")) && $_GET['action'] == 'edit'){
-    return;
-    
-    add_editor_style(" ... ");
+    $style_object = get_my_script_or_style_object('wp-editor-styles.less');
+
+    add_editor_style($style_object->url);
   }
 });
 
