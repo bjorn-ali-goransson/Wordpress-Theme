@@ -11,6 +11,9 @@ Features
 --------
 
 * Bootstrap 3 and Font Awesome included with Bower (just run setup.bat)
+* Gulp (albeit simplistic) assembly of bower components into `vendor/` directory
+* LessJS compilation, minification and watch (using Gulp), along with inclusion from PHP (`add_my_style('style.less')`) without hooks
+* Simple inclusion of scripts like `add_my_script('angular.min.js', 'angular')` (from bower) or `add_my_admin_script('admin.js', array('jquery'));` (in your scripts directory)
 * Gives you the site typography in the TinyMCE WYSIWYG editor
 * Removes the "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
 * *Function modules*: Drop any php file inside `functions/`, and it will be required (`once`) before `application.php`
