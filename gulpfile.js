@@ -1,27 +1,31 @@
 /// <vs BeforeBuild='default' />
+
 var gulp = require('gulp');
 var del = require('del');
 var _ = require('underscore');
 
-var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf'];
+var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
 
-gulp.task('deps', function () {
-    del('UI/Vendor/**/*', function () {
-        gulp
-        .src(
-            _
-            .map(extensions, function (extension) {
-                return 'bower_components/**/*.' + extension;
-            })
-            .concat([
-                '!**/Gruntfile.js',
-                '!**/grunt/**/*',
-                '!**/src/**/*'
-            ]),
-            {}
-        )
-        .pipe(gulp.dest('vendor'));
-    });
+gulp.task('clean', function(){
+  return del('ClientResources/Vendor/**/*');
+});
+
+gulp.task('deps', ['clean'], function () {
+  return gulp
+  .src(
+      _
+      .map(extensions, function (extension) {
+          return 'bower_components/**/*.' + extension;
+      })
+      .concat([
+          '!**/Gruntfile.js',
+          '!**/package.js',
+          '!**/grunt.js',
+          '!**/grunt/**/*',
+          '!**/src/**/*'
+      ])
+  )
+  .pipe(gulp.dest('ClientResources/Vendor'));
 });
 
 var less = require('gulp-less');
@@ -47,7 +51,7 @@ gulp.task('less', wrapPipe(function(success, error) {
         .pipe(livereload());
 }));
 gulp.task('watch', function() {
-    gulp.watch('./**/*.less', ['less']);  // Watch all the .less files, then run the less task
+    return gulp.watch('./**/*.less', ['less']);  // Watch all the .less files, then run the less task
 });
 
 
