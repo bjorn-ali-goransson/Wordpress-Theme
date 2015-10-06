@@ -16,40 +16,6 @@ require DIRNAME(__FILE__) . '/application.php';
 
 
 
-/* ADD TOOLS PAGE */
-
-function add_my_tools_page($title, $slug, $path){
-  if(!isset($GLOBALS['my-tools-pages'])){
-    $GLOBALS['my-tools-pages'] = array();
-  }
-
-  $GLOBALS['my-tools-pages'][] = (object)array(
-    'title' => $title,
-    'slug' => $slug,
-    'path' => $path,
-  );
-}
-
-add_action('admin_menu', function(){
-  if(!isset($GLOBALS['my-tools-pages'])){
-    return;
-  }
-  
-  foreach($GLOBALS['my-tools-pages'] as $object){
-	  add_management_page($object->title, $object->title, "manage_options", $object->slug, create_function('', 'require "' . addslashes(dirname(__FILE__)) . '/' . $object->path . '";'));
-  }
-});
-
-
-
-/* ECHO JAVASCRIPT VARIABLE */
-
-function echo_javascript_variable($variable_name, $value){
-  echo '<script>' . 'window.' . $variable_name . ' = ' . json_encode($value) . '</script>' . "\n";
-}
-
-
-
 /* MENUS */
 
 add_theme_support('menus');
@@ -64,45 +30,11 @@ register_nav_menu("top", "Top");
 
 
 
-/* REMOVE ITEMS FROM ADMIN MENU */
+/* ECHO JAVASCRIPT VARIABLE */
 
-function remove_item_from_admin_menu($slug){
-  if(!isset($GLOBALS['remove_items_from_admin_menu'])){
-    $GLOBALS['remove_items_from_admin_menu'] = array();
-  }
-
-  $GLOBALS['remove_items_from_admin_menu'][] = $slug;
+function echo_javascript_variable($variable_name, $value){
+  echo '<script>' . 'window.' . $variable_name . ' = ' . json_encode($value) . '</script>' . "\n";
 }
-
-add_action('admin_menu', function() {
-  if(isset($GLOBALS['remove_items_from_admin_menu'])){
-    foreach($GLOBALS['remove_items_from_admin_menu'] as $slug){
-	    remove_menu_page($slug);
-    }
-  }
-});
-
-
-
-/* REMOVE ITEMS FROM ADMIN BAR */
-
-function remove_item_from_admin_bar($slug){
-  if(!isset($GLOBALS['remove_items_from_admin_bar'])){
-    $GLOBALS['remove_items_from_admin_bar'] = array();
-  }
-
-  $GLOBALS['remove_items_from_admin_bar'][] = $slug;
-}
-
-add_action( 'admin_bar_menu', function( $wp_admin_bar ) {
-  global $wp_admin_bar;
-
-  if(isset($GLOBALS['remove_items_from_admin_bar'])){
-    foreach($GLOBALS['remove_items_from_admin_bar'] as $slug){
-	    $wp_admin_bar->remove_node($slug);
-    }
-  }
-}, 999);
 
 
 
