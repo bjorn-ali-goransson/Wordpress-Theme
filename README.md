@@ -16,14 +16,6 @@ To download, type:
 git clone https://github.com/bornemix/Wordpress-Theme.git my-new-theme
 ```
 
-When inside, do:
+To install dependencies and compile .less files, start `setup.bat`.
 
-```
-setup
-```
-
-To compile-watch your .less files, do:
-
-```
-less
-```
+To compile-watch your .less files, start `less.bat`.
