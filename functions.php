@@ -125,5 +125,3 @@ add_action("after_switch_theme", function(){
 /* OTHER */
 
 add_theme_support('automatic-feed-links');
-
-add_shortcode('link_button', function($attributes, $content){ return get_html_element('btn btn-primary', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content)), 'a'); });
