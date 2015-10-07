@@ -43,14 +43,6 @@ function create_administrator_user($username, $password, $email){
 
 
 
-/* ICON SHORTCODE */
-
-add_shortcode('icon', function($attributes, $content){
-  return '<i class="fa fa-' . $content . ' my-icon"></i>';
-});
-
-
-
 /* OTHER */
 
 add_theme_support('automatic-feed-links');
