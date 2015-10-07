@@ -24,20 +24,6 @@ foreach(glob(dirname(__FILE__) . '/application/*.php') as $filename){
 
 
 
-/* MENUS */
-
-//add_theme_support('menus');
-//register_nav_menu("top", "Top");
-
-
-
-/* THUMBNAILS */
-
-//add_theme_support('post-thumbnails', array( 'post' ));
-//set_post_thumbnail_size(200, 200, true);
-
-
-
 /* EDITOR STYLES */
 
 add_action('admin_enqueue_scripts', function(){

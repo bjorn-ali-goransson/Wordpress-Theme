@@ -70,6 +70,20 @@ require 'application-functions.php';
 
 
 
+/* MENUS */
+
+//add_theme_support('menus');
+//register_nav_menu("top", "Top");
+
+
+
+/* THUMBNAILS */
+
+//add_theme_support('post-thumbnails', array( 'post' ));
+//set_post_thumbnail_size(200, 200, true);
+
+
+
 /* REMOVE ITEMS FROM UI */
 
 remove_item_from_admin_menu('index.php');
