@@ -2,9 +2,19 @@
 
 
 
-/* ADD (PRIVATE) ROUTE */
+/* ADD PUBLIC ROUTE */
 
-function add_my_route($url, $arg2){
+function add_public_route($url, $arg2, $options = array()){
+  $options['public'] = TRUE;
+
+  add_route($url, $arg2, $options);
+}
+
+
+
+/* ADD ROUTE */
+
+function add_route($url, $arg2, $options = array()){
   if(!isset($GLOBALS['my-routes'])){
     $GLOBALS['my-routes'] = array();
   }
@@ -21,6 +31,7 @@ function add_my_route($url, $arg2){
     'url' => $url,
     'callback' => $callback,
     'path' => $path,
+    'options' => $options,
   );
 }
 
@@ -42,7 +53,7 @@ add_action('init', function(){
       continue;
     }
 
-    if(!is_user_logged_in()){
+    if(!isset($route->options['public']) && !is_user_logged_in()){
       continue;
     }
 
