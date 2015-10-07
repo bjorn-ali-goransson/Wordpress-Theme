@@ -59,16 +59,6 @@ add_filter('embed_oembed_html', function($html, $url, $attr, $post_ID) {
 
 
 
-/* AJAX URL */
-
-add_action('wp_head', function() {
-  ?>
-    <script>var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';</script>
-  <?php
-});
-
-
-
 /* CREATE ADMINISTRATOR USER */
 
 function create_administrator_user($username, $password, $email){
