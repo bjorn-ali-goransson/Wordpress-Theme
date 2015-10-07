@@ -153,3 +153,15 @@ function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
     'version' => strpos($_SERVER["HTTP_HOST"], 'localhost') === FALSE ? @filemtime(dirname(__FILE__) . $path) : NULL,
   );
 }
+
+
+
+/* EDITOR STYLES */
+
+add_action('admin_enqueue_scripts', function(){
+  if(is_admin() && in_array($GLOBALS['pagenow'], array("post.php")) && $_GET['action'] == 'edit'){
+    $style_object = get_my_script_or_style_object('wp-editor-styles.less');
+
+    add_editor_style($style_object->url);
+  }
+});

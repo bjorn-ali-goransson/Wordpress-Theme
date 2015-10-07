@@ -24,18 +24,6 @@ foreach(glob(dirname(__FILE__) . '/application/*.php') as $filename){
 
 
 
-/* EDITOR STYLES */
-
-add_action('admin_enqueue_scripts', function(){
-  if(is_admin() && in_array($GLOBALS['pagenow'], array("post.php")) && $_GET['action'] == 'edit'){
-    $style_object = get_my_script_or_style_object('wp-editor-styles.less');
-
-    add_editor_style($style_object->url);
-  }
-});
-
-
-
 /* RESPONSIVE EMBEDS */
 
 add_filter('embed_oembed_html', function($html, $url, $attr, $post_ID) {
