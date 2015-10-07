@@ -26,8 +26,8 @@ foreach(glob(dirname(__FILE__) . '/application/*.php') as $filename){
 
 /* MENUS */
 
-add_theme_support('menus');
-register_nav_menu("top", "Top");
+//add_theme_support('menus');
+//register_nav_menu("top", "Top");
 
 
 
