@@ -38,9 +38,9 @@ register_nav_menu("top", "Top");
 
 
 
-/* ECHO JAVASCRIPT VARIABLE */
+/* OUTPUT JAVASCRIPT VARIABLE */
 
-function echo_javascript_variable($variable_name, $value){
+function output_javascript_variable($variable_name, $value){
   echo '<script>' . 'window.' . $variable_name . ' = ' . json_encode($value) . '</script>' . "\n";
 }
 

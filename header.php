@@ -22,7 +22,7 @@
       }
     </style>
     
-    <?php echo_javascript_variable('siteUrl', get_bloginfo('url') . '/'); ?>
+    <?php output_javascript_variable('siteUrl', get_bloginfo('url') . '/'); ?>
 
     <?php wp_head(); ?>
   </head>
