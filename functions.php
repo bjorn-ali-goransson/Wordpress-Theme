@@ -43,14 +43,6 @@ function create_administrator_user($username, $password, $email){
 
 
 
-/* NULL IF FALSY */
-
-function null_if_falsy($value){
-  return !empty($value) ? $value : NULL;
-}
-
-
-
 /* ICON SHORTCODE */
 
 add_shortcode('icon', function($attributes, $content){
