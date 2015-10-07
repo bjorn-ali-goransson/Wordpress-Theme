@@ -24,7 +24,7 @@ function add_route($url, $arg2, $options = array()){
     $path = NULL;
   } else {
     $callback = NULL;
-    $path = dirname(__FILE__) . '/' . $arg2;
+    $path = dirname(__FILE__) . '/../' . $arg2;
   }
 
   $GLOBALS['my-routes'][] = (object)array(
