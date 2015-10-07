@@ -16,6 +16,7 @@ Features
 * Simple inclusion of scripts like `add_my_script('angular.min.js', 'angular')` (from bower) or `add_my_admin_script('admin.js', array('jquery'));` (in your scripts directory)
 * Includes your `style.less` in the TinyMCE WYSIWYG editor (see `styles/wp-editor-styles.less`)
 * Removes the "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
+* Add custom HTTP routes with `add_route('/register-competitor', function(){ echo 'hello!'; })` or `add_public_route('/register-competitor', function(){ echo 'hello!'; })`
 * *Function modules*: Drop any php file inside `functions/`, and it will be required (`once`) before `application.php`
 * *Application modules*: Drop any php file inside `application/`, and it will be required (`once`) after `application.php`
 
