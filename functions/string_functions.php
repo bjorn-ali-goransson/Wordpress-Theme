@@ -20,6 +20,6 @@ function string_ends_with($haystack, $needle) { // http://stackoverflow.com/a/10
 
 /* TRIM OFF END OF STRING */
 
-function trim_off_end_of_string($string, $number_of_characters){
+function trim_off_end_of_string($string, $number_of_characters){ // http://stackoverflow.com/a/4915787/3638471
   return substr($string, 0, -$number_of_characters);
 }
