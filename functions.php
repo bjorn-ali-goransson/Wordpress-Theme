@@ -21,9 +21,3 @@ require DIRNAME(__FILE__) . '/application.php';
 foreach(glob(dirname(__FILE__) . '/application/*.php') as $filename){
   require_once $filename;
 }
-
-
-
-/* OTHER */
-
-add_theme_support('automatic-feed-links');

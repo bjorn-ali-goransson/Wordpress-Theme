@@ -101,3 +101,4 @@ remove_item_from_admin_bar('wp-logo');
 
 /* OTHER */
 
+add_theme_support('automatic-feed-links');
