@@ -9,14 +9,18 @@ function add_post_type($arg1, $arg2){
     $GLOBALS['my_post_types'] = array();
   }
 
-  $GLOBALS['my_post_types'][] = get_post_type_object($arg1, $arg2);
+  $GLOBALS['my_post_types'][] = get_my_post_type_object($arg1, $arg2);
 }
 
-function get_post_type_object($arg1, $arg2){
+
+
+/* GET POST TYPE OBJECT */
+
+function get_my_post_type_object($arg1, $arg2){
   $id = $arg1;
   $title = $arg2;
 
-  return array(
+  return (object)array(
     'id' => $id,
     'options' => array(
       'public' => FALSE,
