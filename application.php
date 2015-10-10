@@ -47,12 +47,6 @@ add_action('init', function(){
 
 
 
-/* APPLICATION FUNCTIONS */
-
-require 'application-functions.php';
-
-
-
 /* CUSTOM OPTIONS */
 
 //add_long_text_field_to_settings('Footer text', 'footer_text');
