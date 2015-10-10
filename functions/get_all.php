@@ -4,7 +4,7 @@
 
 /* GET ALL */
 
-function get_all($post_type){
+function get_all($post_type, $properties){
   $post_objects = get_posts(array(
     'post_type' => $post_type,
     'nopaging' => TRUE,
@@ -15,10 +15,16 @@ function get_all($post_type){
   $posts = array();
 
   foreach($post_objects as $post_object){
-    $posts[] = (object)array(
+    $post = (object)array(
       'id' => $post_object->ID,
       'name' => $post_object->post_title,
     );
+
+    foreach($properties as $property){
+      $post->$property = get_post_meta($post->id, $property, TRUE);
+    }
+
+    $posts[] = $post;
   }
 
   return $posts;
