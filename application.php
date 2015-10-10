@@ -49,7 +49,7 @@ add_action('init', function(){
 
 /* CUSTOM OPTIONS */
 
-//add_long_text_field_to_settings('Footer text', 'footer_text');
+//add_long_text_field_to_settings('footer_text', 'Footer text');
 
 
 
