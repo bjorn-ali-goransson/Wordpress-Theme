@@ -24,7 +24,10 @@ Features
 * Simple inclusion of scripts like `add_my_script('angular.min.js', 'angular')` (from bower) or `add_my_admin_script('admin.js', array('jquery'));` (in your scripts directory)
 * Includes your `style.less` in the TinyMCE WYSIWYG editor (see `styles/wp-editor-styles.less`)
 * Add custom HTTP routes with `add_route('/register-competitor', function(){ echo 'hello!'; })` or `add_public_route('/register-competitor', function(){ echo 'hello!'; })`
-* Removes the "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
+* Register non-public custom post types (for application development) with `add_post_type('project', 'Projects')`
+* Get an array of posts (as simple stdClass-objects) pre-populated with id, name (`post_title`) and any post meta you wish by calling `get_all('project', array('project_manager', 'members'))`
+* Do a simple meta search (much as the previous function) by calling `get_where('project', 'project_manager', 'ali', array('members'))`
+* Removes the default "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
 * *Function modules*: Drop any php file inside `functions/`, and it will be required (`once`) before `application.php`
 * *Application modules*: Drop any php file inside `application/`, and it will be required (`once`) after `application.php`
 
