@@ -11,8 +11,6 @@ I've identified three different types of code that typically go into a Wordpress
 
 Don't put anything inside `functions.php` - you know it's wrong. Resist the temptation!
 
-To see why I like this, check out `application.php`.
-
 Features
 --------
 
