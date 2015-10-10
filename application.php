@@ -53,6 +53,12 @@ add_action('init', function(){
 
 
 
+/* PROFILE OPTIONS */
+
+//add_text_field_to_profile('postal_code', 'Postal code');
+
+
+
 /* SIDEBARS */
 
 //register_sidebar(array(
