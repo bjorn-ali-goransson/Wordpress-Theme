@@ -47,7 +47,7 @@ mkdir "my-theme" & cd "my-theme"
 Then do:
 
 ```
-git clone https://github.com/bornemix/Wordpress-Theme.git . & rmdir /S /Q .git & del .git* & del README.md & setup
+git clone https://github.com/bornemix/Wordpress-Theme.git . & rmdir /S /Q .git & del .git* & del README.md & del application\logout_route.php & setup
 ```
 
 To install npm and bower dependencies, run gulp dependency packaging, and compile `.less` files, run `setup.bat`. (included in the above command)
