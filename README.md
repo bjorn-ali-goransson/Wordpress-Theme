@@ -33,10 +33,16 @@ Instructions
 
 Prerequisites: [node](https://nodejs.org/), `npm install bower -g`, `npm install gulp -g`.
 
-To download, type:
+To download, create a new directory for your theme:
 
 ```
-git clone https://github.com/bornemix/Wordpress-Theme.git my-new-theme
+mkdir "my-theme" & cd "my-theme"
+```
+
+Then do:
+
+```
+git clone https://github.com/bornemix/Wordpress-Theme.git . & rmdir /S /Q .git & del .git* & setup
 ```
 
 To install dependencies and compile .less files, start `setup.bat`.
