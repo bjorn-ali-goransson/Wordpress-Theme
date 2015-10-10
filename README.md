@@ -55,3 +55,5 @@ To install npm and bower dependencies, run gulp dependency packaging, and compil
 To run gulp dependency packaging, run `deps.bat`.
 
 To compile-watch your `.less` files, run `less.bat`.
+
+When publishing your theme, there's no need to transfer the `node_modules` or `bower_components` to the target server. They are not (and should not) be used by the theme.
