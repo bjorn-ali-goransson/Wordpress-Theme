@@ -59,7 +59,7 @@ add_action('admin_init', function(){
         $field->title,
         function() use ($field){
           ?>
-            <input type="text" id="<?php echo $field->name; ?>" name="my_settings[<?php echo $field->name; ?>]" value="<?php echo get_option_value($field->name); ?>">
+            <input type="text" class="regular-text" id="<?php echo $field->name; ?>" name="my_settings[<?php echo $field->name; ?>]" value="<?php echo esc_attr(get_option_value($field->name)); ?>">
           <?php
         },
         'my_settings',
