@@ -167,9 +167,9 @@ add_action('admin_menu', function() {
 
 
 
-/* GET OPTION */
+/* GET OPTION VALUE */
 
-function get_my_option($key){
+function get_option_value($key){
   $options = get_option('my_settings');
 
   if(!array_key_exists($key, $options)){
@@ -178,8 +178,3 @@ function get_my_option($key){
 
   return $options[$key];
 }
-
-
-
-/* OTHER */
-
