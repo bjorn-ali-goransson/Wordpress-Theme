@@ -1,7 +1,7 @@
 Wordpress theme
 ===============
 
-WP theme modularity without boilerplate.
+WP theme modularity (no ever-growing spaghetti code files) without boilerplate.
 
 I've identified three different types of code that typically go into a Wordpress theme:
 
