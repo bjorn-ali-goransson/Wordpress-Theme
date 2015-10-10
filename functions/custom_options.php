@@ -4,35 +4,35 @@
 
 /* CUSTOM OPTIONS */
 
-function add_category_field_to_settings($title, $name){
-  add_taxonomy_field_to_settings($title, $name, 'category');
+function add_category_field_to_settings($name, $title){
+  add_taxonomy_field_to_settings($name, $title, 'category');
 }
 
-function add_post_field_to_settings($title, $name, $post_type){
-  add_field_to_settings($title, $name, 'post_' . $post_type);
+function add_post_field_to_settings($name, $title, $post_type){
+  add_field_to_settings($name, $title, 'post_' . $post_type);
 }
 
-function add_taxonomy_field_to_settings($title, $name, $taxonomy_name){
-  add_field_to_settings($title, $name, 'taxonomy_' . $taxonomy_name);
+function add_taxonomy_field_to_settings($name, $title, $taxonomy_name){
+  add_field_to_settings($name, $title, 'taxonomy_' . $taxonomy_name);
 }
 
-function add_text_field_to_settings($title, $name){
-  add_field_to_settings($title, $name, 'text');
+function add_text_field_to_settings($name, $title){
+  add_field_to_settings($name, $title, 'text');
 }
 
-function add_long_text_field_to_settings($title, $name){
-  add_field_to_settings($title, $name, 'long_text');
+function add_long_text_field_to_settings($name, $title){
+  add_field_to_settings($name, $title, 'long_text');
 }
 
-function add_number_field_to_settings($title, $name){
-  add_field_to_settings($title, $name, 'number');
+function add_number_field_to_settings($name, $title){
+  add_field_to_settings($name, $title, 'number');
 }
 
-function add_boolean_field_to_settings($title, $name){
-  add_field_to_settings($title, $name, 'boolean');
+function add_boolean_field_to_settings($name, $title){
+  add_field_to_settings($name, $title, 'boolean');
 }
 
-function add_field_to_settings($title, $name, $type){
+function add_field_to_settings($name, $title, $type){
   if(!isset($GLOBALS['my_settings_fields'])){
     $GLOBALS['my_settings_fields'] = array();
   }

@@ -4,35 +4,35 @@
 
 /* CUSTOM PROFILE */
 
-function add_category_field_to_profile($title, $name){
-  add_taxonomy_field_to_profile($title, $name, 'category');
+function add_category_field_to_profile($name, $title){
+  add_taxonomy_field_to_profile($name, $title, 'category');
 }
 
-function add_post_field_to_profile($title, $name, $post_type){
-  add_field_to_profile($title, $name, 'post_' . $post_type);
+function add_post_field_to_profile($name, $title, $post_type){
+  add_field_to_profile($name, $title, 'post_' . $post_type);
 }
 
-function add_taxonomy_field_to_profile($title, $name, $taxonomy_name){
-  add_field_to_profile($title, $name, 'taxonomy_' . $taxonomy_name);
+function add_taxonomy_field_to_profile($name, $title, $taxonomy_name){
+  add_field_to_profile($name, $title, 'taxonomy_' . $taxonomy_name);
 }
 
-function add_text_field_to_profile($title, $name){
-  add_field_to_profile($title, $name, 'text');
+function add_text_field_to_profile($name, $title){
+  add_field_to_profile($name, $title, 'text');
 }
 
-function add_long_text_field_to_profile($title, $name){
-  add_field_to_profile($title, $name, 'long_text');
+function add_long_text_field_to_profile($name, $title){
+  add_field_to_profile($name, $title, 'long_text');
 }
 
-function add_number_field_to_profile($title, $name){
-  add_field_to_profile($title, $name, 'number');
+function add_number_field_to_profile($name, $title){
+  add_field_to_profile($name, $title, 'number');
 }
 
-function add_boolean_field_to_profile($title, $name){
-  add_field_to_profile($title, $name, 'boolean');
+function add_boolean_field_to_profile($name, $title){
+  add_field_to_profile($name, $title, 'boolean');
 }
 
-function add_field_to_profile($title, $name, $type){
+function add_field_to_profile($name, $title, $type){
   if(!isset($GLOBALS['my_profile_fields'])){
     $GLOBALS['my_profile_fields'] = array();
   }
