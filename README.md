@@ -18,7 +18,7 @@ To see why I like this, check out `application.php`.
 Features
 --------
 
-* Bootstrap 3 and Font Awesome included with Bower (just run setup.bat)
+* Bootstrap 3 and Font Awesome included through Bower
 * Gulp (albeit simplistic) assembly of bower components into `vendor/` directory
 * LessJS compilation, minification and watch (using Gulp), along with inclusion from PHP (`add_my_style('style.less')`) without hooks
 * Simple inclusion of scripts like `add_my_script('angular.min.js', 'angular')` (from bower) or `add_my_admin_script('admin.js', array('jquery'));` (in your scripts directory)
@@ -38,7 +38,7 @@ Instructions
 
 Prerequisites: [node](https://nodejs.org/), `npm install bower -g`, `npm install gulp -g`.
 
-To download, create a new directory for your theme:
+To download, start a command prompt and create a new directory for your theme:
 
 ```
 mkdir "my-theme" & cd "my-theme"
@@ -50,6 +50,8 @@ Then do:
 git clone https://github.com/bornemix/Wordpress-Theme.git . & rmdir /S /Q .git & del .git* & setup
 ```
 
-To install dependencies and compile .less files, start `setup.bat`.
+To install npm and bower dependencies, run gulp dependency packaging, and compile `.less` files, run `setup.bat`. (included in the above command)
 
-To compile-watch your .less files, start `less.bat`.
+To run gulp dependency packaging, run `deps.bat`.
+
+To compile-watch your `.less` files, run `less.bat`.
