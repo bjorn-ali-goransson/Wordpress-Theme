@@ -57,10 +57,11 @@ add_action('admin_init', function(){
       add_settings_field(
         $field->name,
         $field->title,
-        create_function('', '
-          $options = get_option(\'my_settings\');
-          echo \'<input type="text" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="\' . $options[\'' . $field->name . '\'] . \'">\';
-        '),
+        function() use ($field){
+          ?>
+            <input type="text" id="<?php echo $field->name; ?>" name="my_settings[<?php echo $field->name; ?>]" value="<?php echo get_option_value($field->name); ?>">
+          <?php
+        },
         'my_settings',
         'my_settings_main'
       );
