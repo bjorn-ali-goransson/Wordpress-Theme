@@ -4,7 +4,7 @@
 
 /* GET ALL */
 
-function get_all($post_type, $properties){
+function get_all($post_type, $properties = array()){
   $post_objects = get_posts(array(
     'post_type' => $post_type,
     'nopaging' => TRUE,
