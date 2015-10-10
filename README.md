@@ -1,8 +1,6 @@
 Wordpress theme
 ===============
 
-WP theme modularity (no ever-growing spaghetti code files) without boilerplate.
-
 I've identified three different types of code that typically go into a Wordpress theme:
 
 1. General useful functions that are re-used between projects, and gradually improved upon. Put these into `functions/a_useful_function.php` to have them `require_once`:d before anything else. For inter-dependencies, use `require_once dirname(__FILE__) . '/my-dependency.php'` .
