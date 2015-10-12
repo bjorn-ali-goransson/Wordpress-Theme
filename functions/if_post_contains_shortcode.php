@@ -9,6 +9,10 @@ function if_post_contains_shortcode($shortcode_name, $callback){
       return $posts;
     }
 
+    if(count($posts) > 1){
+      return $posts;
+    }
+
     $post_content = $posts[0]->post_content;
 
     if(strpos($post_content, '[' . $shortcode_name . ']') !== FALSE){
