@@ -1,7 +1,7 @@
 Wordpress theme
 ===============
 
-I've identified three different types of code that typically go into a Wordpress theme:
+I've identified three different types of code that typically go into a Wordpress theme: General useful functions, calling of functions with project-specific parameters, and project-specific code.
 
 1. General useful functions that are re-used between projects, and gradually improved upon. Put these into `functions/a_useful_function.php` to have them `require_once`:d before anything else. For inter-dependencies, use `require_once dirname(__FILE__) . '/my-dependency.php'` .
 
@@ -50,6 +50,8 @@ To install npm and bower dependencies, run gulp dependency packaging, and compil
 
 To run gulp dependency packaging, run `deps.bat`.
 
-To compile-watch your `.less` files, run `less.bat`.
+To compile your `.less` files, run `less.bat`.
+
+To watch-compile your `.less` files, run `less-watch.bat`.
 
 When publishing your theme, there's no need to transfer the `node_modules` or `bower_components` to the target server. They are not (and should not) be used by the theme.
