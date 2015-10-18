@@ -12,6 +12,10 @@ function get_all($type, $properties = array()){
   return get_all_posts($type, $properties);
 }
 
+
+
+/* GET ALL USERS */
+
 function get_all_users($properties = array()){
   $wp_users_columns = array('ID');
   $meta_properties = array();
@@ -35,8 +39,14 @@ function get_all_users($properties = array()){
     $wp_user = (array)$wp_user;
     $user_id = $wp_user['ID'];
     unset($wp_user['ID']);
-    $user = (object)$wp_user;
+
+    $user = new DynamicUser;
+
     $user->id = $user_id;
+
+    foreach($wp_user as $key => $value){
+      $user->$key = $value;
+    }
 
     foreach($meta_properties as $meta_key){
       $user->$meta_key = get_user_meta($user->id, $meta_key, TRUE);
@@ -47,6 +57,12 @@ function get_all_users($properties = array()){
 
   return $users;
 }
+
+class DynamicUser extends stdClass { }
+
+
+
+/* GET ALL POSTS */
 
 function get_all_posts($post_type, $properties = array()){
   $post_objects = get_posts(array(

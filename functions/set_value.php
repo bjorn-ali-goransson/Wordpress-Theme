@@ -4,6 +4,11 @@
 
 /* SET VALUE */
 
-function set_value($post, $key, $value){
-  update_post_meta($post->id, $key, $value);
+function set_value($instance, $key, $value){
+  if(is_a($instance, 'DynamicUser')){
+    update_user_meta($instance->id, $key, $value);
+    return;
+  }
+
+  update_post_meta($instance->id, $key, $value);
 }
