@@ -70,7 +70,7 @@ add_action('admin_init', function(){
 
   
   foreach($GLOBALS['my_settings_sections'] as $section){
-    add_settings_section($section->title, $section->title, function() { }, 'my_settings');
+    add_settings_section($section->name, '<span class="color:#999;">' . $section->title . '</span>', function() { }, 'my_settings');
   }
 
   foreach($GLOBALS['my_settings_fields'] as $field){
@@ -79,9 +79,23 @@ add_action('admin_init', function(){
         $field->name,
         $field->title,
         function() use ($field){
+          $options = get_option('my_settings');
+  
+          $value = '';
+
+          if(array_key_exists($field->name, $options) && $options[$field->name] !== '' && (!isset($GLOBALS['my_settings_fields'][$field->name]->default_value) || $options[$field->name] != $GLOBALS['my_settings_fields'][$field->name]->default_value)){
+            $value = $options[$field->name];
+          }
+
           ?>
-            <input type="text" class="regular-text" id="<?php echo $field->name; ?>" name="my_settings[<?php echo $field->name; ?>]" value="<?php echo esc_attr(get_option_value($field->name)); ?>">
+            <input type="text" class="regular-text" id="<?php echo $field->name; ?>" name="my_settings[<?php echo $field->name; ?>]" value="<?php echo esc_attr($value); ?>">
           <?php
+            
+          if(isset($GLOBALS['my_settings_fields'][$field->name]->default_value)){
+            ?>
+              <p class="description">"<?php echo $GLOBALS['my_settings_fields'][$field->name]->default_value; ?>"</p>
+            <?php
+          }
         },
         'my_settings',
         $field->section
@@ -180,7 +194,7 @@ add_action('admin_menu', function() {
         <form action="options.php" method="post">
           <?php settings_fields('my_settings'); ?>
           <?php do_settings_sections('my_settings'); ?>
- 
+          
           <input type="submit" class="button button-primary" value="<?php esc_attr_e('Save Changes'); ?>" />
         </form>
       </div>
