@@ -37,10 +37,26 @@ function add_field_to_settings($name, $title, $type){
     $GLOBALS['my_settings_fields'] = array();
   }
 
+  if(!isset($GLOBALS['my_settings_sections'])){
+    add_section_to_settings('Skräddarsydda inställningar');
+  }
+
   $GLOBALS['my_settings_fields'][] = (object)array(
     'title' => $title,
     'name' => $name,
     'type' => $type,
+    'section' => $GLOBALS['my_settings_sections'][count($GLOBALS['my_settings_sections']) - 1]->name,
+  );
+}
+
+function add_section_to_settings($title){
+  if(!isset($GLOBALS['my_settings_sections'])){
+    $GLOBALS['my_settings_sections'] = array();
+  }
+
+  $GLOBALS['my_settings_sections'][] = (object)array(
+    'title' => $title,
+    'name' => $title,
   );
 }
 
@@ -50,7 +66,11 @@ add_action('admin_init', function(){
   }
 
   register_setting( 'my_settings', 'my_settings', function($input){ return $input; });
-  add_settings_section('my_settings_main', 'Skräddarsydda inställningar', function() { }, 'my_settings');
+
+  
+  foreach($GLOBALS['my_settings_sections'] as $section){
+    add_settings_section($section->title, $section->title, function() { }, 'my_settings');
+  }
 
   foreach($GLOBALS['my_settings_fields'] as $field){
     if($field->type == 'text'){
@@ -63,7 +83,7 @@ add_action('admin_init', function(){
           <?php
         },
         'my_settings',
-        'my_settings_main'
+        $field->section
       );
     }
     if($field->type == 'long_text'){
@@ -75,7 +95,7 @@ add_action('admin_init', function(){
           echo \'<textarea id="' . $field->name . '" name="my_settings[' . $field->name . ']">\' . $options[\'' . $field->name . '\'] . \'</textarea>\';
         '),
         'my_settings',
-        'my_settings_main'
+        $field->section
       );
     }
     if($field->type == 'number'){
@@ -87,7 +107,7 @@ add_action('admin_init', function(){
           echo \'<input type="number" id="' . $field->name . '" name="my_settings[' . $field->name . ']" value="\' . $options[\'' . $field->name . '\'] . \'">\';
         '),
         'my_settings',
-        'my_settings_main'
+        $field->section
       );
     }
     if($field->type == 'boolean'){
@@ -100,7 +120,7 @@ add_action('admin_init', function(){
           <?php
         },
         'my_settings',
-        'my_settings_main'
+        $field->section
       );
     }
     if(strpos($field->type, 'taxonomy_') === 0){
@@ -121,7 +141,7 @@ add_action('admin_init', function(){
           ));
         '),
         'my_settings',
-        'my_settings_main'
+        $field->section
       );
     }
     if(strpos($field->type, 'post_') === 0){
@@ -142,7 +162,7 @@ add_action('admin_init', function(){
           echo \'</select>\';
         '),
         'my_settings',
-        'my_settings_main'
+        $field->section
       );
     }
   }
