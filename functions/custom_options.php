@@ -4,35 +4,35 @@
 
 /* CUSTOM OPTIONS */
 
-function add_category_field_to_settings($name, $title){
-  add_taxonomy_field_to_settings($name, $title, 'category');
+function add_category_field_to_settings($name, $title, $default_value = NULL){
+  add_taxonomy_field_to_settings($name, $title, 'category', $default_value);
 }
 
-function add_post_field_to_settings($name, $title, $post_type){
-  add_field_to_settings($name, $title, 'post_' . $post_type);
+function add_post_field_to_settings($name, $title, $post_type, $default_value = NULL){
+  add_field_to_settings($name, $title, 'post_' . $post_type, $default_value);
 }
 
-function add_taxonomy_field_to_settings($name, $title, $taxonomy_name){
-  add_field_to_settings($name, $title, 'taxonomy_' . $taxonomy_name);
+function add_taxonomy_field_to_settings($name, $title, $taxonomy_name, $default_value = NULL){
+  add_field_to_settings($name, $title, 'taxonomy_' . $taxonomy_name, $default_value);
 }
 
-function add_text_field_to_settings($name, $title){
-  add_field_to_settings($name, $title, 'text');
+function add_text_field_to_settings($name, $title, $default_value = NULL){
+  add_field_to_settings($name, $title, 'text', $default_value);
 }
 
-function add_long_text_field_to_settings($name, $title){
-  add_field_to_settings($name, $title, 'long_text');
+function add_long_text_field_to_settings($name, $title, $default_value = NULL){
+  add_field_to_settings($name, $title, 'long_text', $default_value);
 }
 
-function add_number_field_to_settings($name, $title){
-  add_field_to_settings($name, $title, 'number');
+function add_number_field_to_settings($name, $title, $default_value = NULL){
+  add_field_to_settings($name, $title, 'number', $default_value);
 }
 
-function add_boolean_field_to_settings($name, $title){
-  add_field_to_settings($name, $title, 'boolean');
+function add_boolean_field_to_settings($name, $title, $default_value = NULL){
+  add_field_to_settings($name, $title, 'boolean', $default_value);
 }
 
-function add_field_to_settings($name, $title, $type){
+function add_field_to_settings($name, $title, $type, $default_value = NULL){
   if(!isset($GLOBALS['my_settings_fields'])){
     $GLOBALS['my_settings_fields'] = array();
   }
@@ -41,10 +41,11 @@ function add_field_to_settings($name, $title, $type){
     add_section_to_settings('Skräddarsydda inställningar');
   }
 
-  $GLOBALS['my_settings_fields'][] = (object)array(
+  $GLOBALS['my_settings_fields'][$name] = (object)array(
     'title' => $title,
     'name' => $name,
     'type' => $type,
+    'default_value' => $default_value,
     'section' => $GLOBALS['my_settings_sections'][count($GLOBALS['my_settings_sections']) - 1]->name,
   );
 }
@@ -191,12 +192,15 @@ add_action('admin_menu', function() {
 
 /* GET OPTION VALUE */
 
-function get_option_value($key){
+function get_option_value($name){
   $options = get_option('my_settings');
 
-  if(!array_key_exists($key, $options)){
-    return NULL;
+  if(!array_key_exists($name, $options)){
+    if(!isset($GLOBALS['my_settings_fields'][$name]->default_value)){
+      return NULL;
+    }
+    return $GLOBALS['my_settings_fields'][$name]->default_value;
   }
 
-  return $options[$key];
+  return $options[$name];
 }
