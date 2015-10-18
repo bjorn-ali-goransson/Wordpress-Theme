@@ -70,7 +70,7 @@ add_action('admin_init', function(){
 
   
   foreach($GLOBALS['my_settings_sections'] as $section){
-    add_settings_section($section->name, '<span class="color:#999;">' . $section->title . '</span>', function() { }, 'my_settings');
+    add_settings_section($section->name, '<span style="color:#999;">' . $section->title . '</span>', function() { }, 'my_settings');
   }
 
   foreach($GLOBALS['my_settings_fields'] as $field){
