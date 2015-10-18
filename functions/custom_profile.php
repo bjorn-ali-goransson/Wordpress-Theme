@@ -74,10 +74,10 @@ function my_show_extra_profile_fields($profileuser) {
                 ?>
 			        </td>
 		        </tr>
-	        </table>
           <?php
         }
       ?>
+	  </table>
   <?php
 }
 
