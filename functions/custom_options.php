@@ -194,8 +194,8 @@ add_action('admin_menu', function() {
 
 function get_option_value($name){
   $options = get_option('my_settings');
-
-  if(!array_key_exists($name, $options)){
+  
+  if(!array_key_exists($name, $options) || $options[$name] === ''){
     if(!isset($GLOBALS['my_settings_fields'][$name]->default_value)){
       return NULL;
     }
