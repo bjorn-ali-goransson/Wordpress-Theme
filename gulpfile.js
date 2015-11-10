@@ -4,11 +4,17 @@ var gulp = require('gulp');
 var del = require('del');
 var _ = require('underscore');
 
-var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
+var iis = require('gulp-iis-express');
+
+gulp.task('iis', function(){
+  return iis({sitePaths:['MyWebsiteNameInApplicationHost.config']});
+});
 
 gulp.task('clean', function(){
   return del('vendor/**/*');
 });
+
+var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
 
 gulp.task('deps', ['clean'], function () {
   return gulp
