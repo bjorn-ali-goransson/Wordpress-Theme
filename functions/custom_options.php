@@ -165,17 +165,36 @@ add_action('admin_init', function(){
       add_settings_field(
         $field->name,
         $field->title,
-        create_function('', '
-          $options = get_option(\'my_settings\');
+        function() use ($field, $post_type){
+          $options = get_option('my_settings');
+  
+          $value = '';
 
-          echo \'<select id="' . $field->name . '" name="my_settings[' . $field->name . ']">\';
-
-          foreach(get_posts(array(\'post_type\' => \'' . $post_type . '\', \'nopaging\' => TRUE)) as $post){
-            echo \'<option value="\' . $post->ID . \'"\' . ($options[\'' . $field->name . '\'] == $post->ID ? \' selected="selected"\' : \'\') . \'>\' . $post->post_title . \'</option>\';
+          if(array_key_exists($field->name, $options) && $options[$field->name] !== '' && (!isset($GLOBALS['my_settings_fields'][$field->name]->default_value) || $options[$field->name] != $GLOBALS['my_settings_fields'][$field->name]->default_value)){
+            $value = $options[$field->name];
           }
 
-          echo \'</select>\';
-        '),
+          ?>
+            <select id="<?php echo $field->name; ?>" name="my_settings[<?php echo $field->name; ?>]">
+          <?php
+          
+          foreach(get_posts(array('post_type' => $post_type, 'nopaging' => TRUE)) as $post){
+            ?>
+              <option value="<?php echo esc_attr($post->ID); ?>"<?php if(array_key_exists($field->name, $options) && $options[$field->name] == $post->ID) { echo ' selected="selected"'; } ?>><?php echo $post->post_title; ?></option>
+            <?php
+            echo '';
+          }
+          
+          ?>
+            </select>
+          <?php
+            
+          if(isset($GLOBALS['my_settings_fields'][$field->name]->default_value)){
+            ?>
+              <p class="description">"<?php echo $GLOBALS['my_settings_fields'][$field->name]->default_value; ?>"</p>
+            <?php
+          }
+        },
         'my_settings',
         $field->section
       );
