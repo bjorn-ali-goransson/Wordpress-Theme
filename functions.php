@@ -16,6 +16,14 @@ require DIRNAME(__FILE__) . '/application.php';
 
 
 
+/* LOAD APPLICATION FUNCTIONS */
+
+foreach(glob(dirname(__FILE__) . '/application/functions/*.php') as $filename){
+  require_once $filename;
+}
+
+
+
 /* LOAD APPLICATION MODULES */
 
 foreach(glob(dirname(__FILE__) . '/application/*.php') as $filename){
