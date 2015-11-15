@@ -10,6 +10,7 @@ gulp.task('iis', function(){
   return iis({sitePaths:['MyWebsiteNameInApplicationHost.config']});
 });
 
+
 gulp.task('clean', function(){
   return del('vendor/**/*');
 });
@@ -49,6 +50,7 @@ gulp.task('less', wrapPipe(function(success, error) {
         .pipe(
           less({
             globalVars: { 'themeurl': '\'/wp-content/themes/' + path.basename(__dirname) + '\'' }
+
           })
           .on('error', error)
         )
@@ -57,6 +59,7 @@ gulp.task('less', wrapPipe(function(success, error) {
         .pipe(livereload());
 }));
 gulp.task('watch', function() {
+    livereload.listen();
     return gulp.watch('./**/*.less', ['less']);  // Watch all the .less files, then run the less task
 });
 
