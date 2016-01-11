@@ -17,6 +17,10 @@ function get_image_from_meta($post_id, $meta_key, $size = 'full'){
 function get_image($image_id, $size = 'full'){
   $image = wp_get_attachment_image_src($image_id, $size);
 
+  if(empty($image)){
+    return NULL;
+  }
+
   return (object)array(
     'url' => $image[0],
     'width' => $image[1],
