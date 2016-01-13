@@ -80,6 +80,7 @@ remove_item_from_admin_menu('upload.php');
 remove_item_from_admin_menu('edit.php?post_type=page');
 remove_item_from_admin_menu('edit-comments.php');
 
+remove_item_from_admin_bar('customize');
 remove_item_from_admin_bar('new-content');
 remove_item_from_admin_bar('comments');
 remove_item_from_admin_bar('search');
