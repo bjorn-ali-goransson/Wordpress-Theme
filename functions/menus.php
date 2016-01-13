@@ -18,7 +18,7 @@ function get_menu_by_location( $location ) {
 function echo_menu_error_message(){
   ?>
     <ul class="<?php echo $GLOBALS["my_menu_class_names"]; ?>">
-      <li><a href="<?php echo admin_url('nav-menus.php'); ?>?action=edit&menu=0&location=<?php echo $GLOBALS["my_menu_location"] ?>"><?php _e("Click here to create a menu!") ?></a></li>
+      <li><a href="<?php echo admin_url('nav-menus.php'); ?>?action=edit&menu=0&use-location=<?php echo $GLOBALS["my_menu_location"] ?>"><?php _e("Click here to create a menu!") ?></a></li>
     </ul>
   <?php
 }
