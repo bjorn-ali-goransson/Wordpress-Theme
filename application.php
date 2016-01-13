@@ -8,7 +8,7 @@ force_login_to_site();
 
 add_my_script('angular.min.js', 'angular');
 add_my_script('js/tab.js', 'bootstrap');
-add_my_script('main.js', array('lodash/lodash.min.js', 'jquery', 'jquery-ui-autocomplete'));
+add_my_script('main.js', array('lodash/lodash.min.js', 'jquery'));
 
 add_my_admin_script('admin.js', array('jquery'));
 
