@@ -9,8 +9,6 @@
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <!--<link rel="icon" href="<?php bloginfo("url") ?>/favicon.ico">-->
 
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-
     <!-- Wordpress Head Items -->
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
@@ -30,3 +28,22 @@
   <!--[if lt IE 9]>
     <div class="alert alert-warning"><div class="container">You are using an outdated browser. <a href="http://browsehappy.com/" class="alert-link">Upgrade your browser today</a></div></div>
   <![endif]-->
+    
+  <nav class="navbar" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only"><?php _e('Toggle navigation'); ?></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="<?php echo site_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/logo.png"></a>
+      </div>
+
+      <div class="collapse navbar-collapse">
+        <?php my_menu('main', "nav navbar-nav") ?>
+      </div>
+    </nav>
+  </div>

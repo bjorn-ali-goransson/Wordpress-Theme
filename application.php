@@ -60,8 +60,8 @@ add_my_admin_style('admin.less');
 
 /* MENUS */
 
-//add_theme_support('menus');
-//register_nav_menu("top", "Top");
+add_theme_support('menus');
+register_nav_menu("main", "Main menu");
 
 
 
