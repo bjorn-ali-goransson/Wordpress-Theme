@@ -4,6 +4,6 @@
 
 /* ICON SHORTCODE */
 
-add_shortcode('icon', function($attributes, $content){
-  return '<i class="fa fa-' . $content . ' my-icon"></i>';
+add_shortcode('icon', function($args, $content){
+  return '<i class="fa fa-' . array_values($args)[0] . '"></i>';
 });
