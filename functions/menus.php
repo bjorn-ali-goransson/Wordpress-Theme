@@ -18,7 +18,7 @@ function get_menu_by_location( $location ) {
 function echo_menu_error_message(){
   ?>
     <ul class="<?php echo $GLOBALS["my_menu_class_names"]; ?>">
-      <li><a href="<?php echo admin_url('nav-menus.php'); ?>?action=edit&menu=0&use-location=<?php echo $GLOBALS["my_menu_location"] ?>"><?php _e("Click here to create a menu!") ?></a></li>
+      <li><a href="<?php echo admin_url('nav-menus.php'); ?>?action=edit&menu=0&location=<?php echo $GLOBALS["my_menu_location"] ?>"><?php _e("Click here to create a menu!") ?></a></li>
     </ul>
   <?php
 }
@@ -31,7 +31,7 @@ function my_menu($location = "top", $class_names = "nav"){
   $GLOBALS["my_menu_dropdowns"] = 1;
   wp_nav_menu(array(
     'theme_location' => $location,
-    'depth'    => 2,
+    'depth'    => 1,
     'container'  => false,
     'menu_class'   => $class_names,
     'fallback_cb' => 'echo_menu_error_message',
@@ -77,13 +77,10 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
   }
 
 	function end_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat("\t", $depth);
-		$output .= "$indent</ul>\n";
+		$output .= "</ul>";
 	}
 
   function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-    $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-
     $li_attributes = '';
     $class_names = $value = '';
 
@@ -116,8 +113,6 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 
     $item_output = $args->before;
     $item_output .= '<a'. $attributes .'>';
-    $item_output .= $item->post_excerpt;
-    $item_output .= " ";
     $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
     
     if($GLOBALS["my_menu_dropdowns"] == 1 && $depth == 0 && $args->has_children){
@@ -130,6 +125,9 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 
     $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
   }
+	function end_el( &$output, $item, $depth = 0, $args = array() ) {
+	  $output .= "</li>";
+	}
 
   function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
     if ( !$element )
