@@ -38,6 +38,17 @@ add_shortcode('hide_for_mobile', function($attributes, $content){ return get_htm
 
 
 
+/* UNWRAP ELEMENT FROM ELEMENT */
+
+function unwrap_element_from_element($content, $child, $parent){
+  $content = preg_replace('@<' . $parent . '[^>]*>\s*(<' . $child . '[^>]*>)@', '$1', $content);
+  $content = preg_replace('@(</' . $child . '>)\s*</' . $parent . '>@', '$1', $content);
+
+  return $content;
+}
+
+
+
 /* TRIM LEADING AND TRAILING P TAGS */
 
 function trim_leading_and_trailing_p_tags($content){
