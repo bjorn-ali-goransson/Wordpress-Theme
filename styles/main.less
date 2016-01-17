@@ -42,11 +42,13 @@ body {
 
 /* NAVBAR */
 
-.navbar-toggle {
-  border-color: @brand-primary;
+@media (max-width: @screen-sm-max) {
+  .navbar-toggle {
+    border-color: @brand-primary;
   
-  .icon-bar {
-    background: @brand-primary;
+    .icon-bar {
+      background: @brand-primary;
+    }
   }
 }
 
