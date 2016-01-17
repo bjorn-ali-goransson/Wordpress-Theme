@@ -80,6 +80,14 @@ function get_all_posts($post_type, $properties = array()){
       'name' => $post_object->post_title,
     );
 
+    foreach($post_object as $key => $value){
+      if($key == 'ID'){
+        continue;
+      }
+
+      $post->$key = $value;
+    }
+
     foreach($properties as $property){
       $post->$property = get_post_meta($post->id, $property, TRUE);
     }
