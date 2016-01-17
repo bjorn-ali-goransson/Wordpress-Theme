@@ -4,21 +4,20 @@
 
 /* ADD POST TYPE */
 
-function add_post_type($arg1, $arg2){
+function add_post_type($id, $label, $options = array()){
   if(!isset($GLOBALS['my_post_types'])){
     $GLOBALS['my_post_types'] = array();
   }
 
-  $GLOBALS['my_post_types'][] = get_my_post_type_object($arg1, $arg2);
+  $GLOBALS['my_post_types'][] = get_my_post_type_object($id, $label, $options);
 }
 
 
 
 /* GET POST TYPE OBJECT */
 
-function get_my_post_type_object($arg1, $arg2){
-  $id = $arg1;
-  $title = $arg2;
+function get_my_post_type_object($id, $label, $options = array()){
+  $supports = array_merge(array('title'), !empty($options['supports']) ? $options['supports'] : array());
 
   return (object)array(
     'id' => $id,
@@ -27,9 +26,9 @@ function get_my_post_type_object($arg1, $arg2){
       'show_ui' => TRUE,
       'show_in_nav_menus' => TRUE,
       'labels' => array(
-        'name' => $title,
+        'name' => $label,
       ),
-      'supports' => array('title'),
+      'supports' => $supports,
       //'has_archive' => 'my_slug', // Don't forget to visit Permalinks after changing this
     )
   );
