@@ -7,7 +7,8 @@ force_login_to_site();
 /* SCRIPTS */
 
 add_my_script('angular.min.js', 'angular');
-add_my_script('js/tab.js', 'bootstrap');
+add_my_script('js/transition.js', 'bootstrap', array('jquery'));
+add_my_script('js/collapse.js', 'bootstrap', array('jquery'));
 add_my_script('lodash.min.js', 'lodash');
 add_my_script('main.js', array('lodash/lodash.min.js', 'jquery'));
 
