@@ -45,5 +45,5 @@
       <div class="collapse navbar-collapse">
         <?php my_menu('main', "nav navbar-nav") ?>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
