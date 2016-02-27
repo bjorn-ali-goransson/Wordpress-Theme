@@ -76,11 +76,11 @@ register_nav_menu("main", "Main menu");
 
 /* REMOVE ITEMS FROM UI */
 
-remove_item_from_admin_menu('index.php');
-remove_item_from_admin_menu('edit.php');
-remove_item_from_admin_menu('upload.php');
-remove_item_from_admin_menu('edit.php?post_type=page');
-remove_item_from_admin_menu('edit-comments.php');
+remove_item_from_admin_menu('index.php'); // Dashboard
+remove_item_from_admin_menu('edit.php'); // Posts
+remove_item_from_admin_menu('upload.php'); // Media library
+remove_item_from_admin_menu('edit.php?post_type=page'); // Pages
+remove_item_from_admin_menu('edit-comments.php'); // Comments
 
 remove_item_from_admin_bar('customize');
 remove_item_from_admin_bar('new-content');
