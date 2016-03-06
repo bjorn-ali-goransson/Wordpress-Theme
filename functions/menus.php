@@ -42,27 +42,6 @@ function my_menu($location = "top", $class_names = "nav"){
   unset($GLOBALS["my_menu_dropdowns"]);
 }
 
-function my_sub_menu($location = "top", $class_names = "nav"){
-  $GLOBALS["my_menu_location"] = $location;
-  $GLOBALS["my_menu_sub_menu"] = 1;
-  $GLOBALS["my_menu_sub_menu_walking_status"] = 'nothing found yet';
-  $GLOBALS["my_menu_class_names"] = $class_names;
-  $GLOBALS["my_menu_dropdowns"] = 0;
-  wp_nav_menu(array(
-    'theme_location' => $location,
-    'depth'    => 2,
-    'container'  => false,
-    'menu_class'   => $class_names,
-    'fallback_cb' => 'echo_menu_error_message',
-    'walker'   => new Bootstrap_Walker_Nav_Menu()
-  ));
-  unset($GLOBALS["my_menu_location"]);
-  unset($GLOBALS["my_menu_sub_menu"]);
-  unset($GLOBALS["my_menu_sub_menu_walking_status"]);
-  unset($GLOBALS["my_menu_class_names"]);
-  unset($GLOBALS["my_menu_dropdowns"]);
-}
-
 class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
   function start_lvl( &$output, $depth = 0, $args = array() ) {
     $indent = str_repeat( "\t", $depth );
@@ -128,81 +107,4 @@ class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function end_el( &$output, $item, $depth = 0, $args = array() ) {
 	  $output .= "</li>";
 	}
-
-  function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
-    if ( !$element )
-      return;
-
-    if(isset($GLOBALS["my_menu_sub_menu"]) && $GLOBALS["my_menu_sub_menu"] == 1){
-      if($GLOBALS["my_menu_sub_menu_walking_status"] == 'already found'){
-        return;
-      }
-
-      if($GLOBALS["my_menu_sub_menu_walking_status"] == 'nothing found yet'){
-        if($depth == 0){
-          if($element->current || $element->current_item_ancestor){
-            $GLOBALS["my_menu_sub_menu_walking_status"] = 'now showing selected tree';
-          } else {
-            return;
-          }
-        }
-      }
-    }
-    
-    $id_field = $this->db_fields['id'];
-
-    //display this element
-    if ( is_array( $args[0] ) ) 
-      $args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
-    else if ( is_object( $args[0] ) ) 
-      $args[0]->has_children = ! empty( $children_elements[$element->$id_field] ); 
-    $cb_args = array_merge( array(&$output, $element, $depth), $args);
-
-    if(!(isset($GLOBALS["my_menu_sub_menu"]) && $GLOBALS["my_menu_sub_menu"] == 1 && $depth == 0)){
-      call_user_func_array(array(&$this, 'start_el'), $cb_args);
-    }
-
-    $id = $element->$id_field;
-
-    // descend only when the depth is right and there are childrens for this element
-    if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
-
-      foreach( $children_elements[ $id ] as $child ){
-
-        if ( !isset($newlevel) ) {
-          $newlevel = true;
-          //start the child delimiter
-          $cb_args = array_merge( array(&$output, $depth), $args);
-          
-          if(!(isset($GLOBALS["my_menu_sub_menu"]) && $GLOBALS["my_menu_sub_menu"] == 1 && $depth == 0)){
-            call_user_func_array(array(&$this, 'start_lvl'), $cb_args);
-          }
-        }
-        $this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
-      }
-        unset( $children_elements[ $id ] );
-    }
-
-    if ( isset($newlevel) && $newlevel ){
-      //end the child delimiter
-      $cb_args = array_merge( array(&$output, $depth), $args);
-      
-      if(!(isset($GLOBALS["my_menu_sub_menu"]) && $GLOBALS["my_menu_sub_menu"] == 1 && $depth == 0)){
-        call_user_func_array(array(&$this, 'end_lvl'), $cb_args);
-      }
-    }
-
-    //end this element
-    $cb_args = array_merge( array(&$output, $element, $depth), $args);
-    
-    if(!(isset($GLOBALS["my_menu_sub_menu"]) && $GLOBALS["my_menu_sub_menu"] == 1 && $depth == 0)){
-      call_user_func_array(array(&$this, 'end_el'), $cb_args);
-    }
-
-    if(isset($GLOBALS["my_menu_sub_menu"]) && $GLOBALS["my_menu_sub_menu"] == 1){
-      if($depth == 0 && $GLOBALS["my_menu_sub_menu_walking_status"] == 'now showing selected tree'){
-        $GLOBALS["my_menu_sub_menu_walking_status"] = 'already found';
-      }
-    }
-  }
 }
