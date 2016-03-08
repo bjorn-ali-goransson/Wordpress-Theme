@@ -1,5 +1,5 @@
 <?php
-function breadcrumbs(){
+function breadcrumbs($text_before){
   global $post;
   ?>
     <ol class="breadcrumb">
@@ -37,6 +37,7 @@ function breadcrumbs(){
         foreach($ids as $i => $id){
           ?>
             <li<?= $id == array_slice($ids, -1)[0] ? ' class="active"' : '' ?>>
+              <?php if($i == 0){ echo $text_before; } ?>
               <a href="<?php echo get_permalink($id); ?>"><?php echo get_the_title($id); ?></a>
             </li>
           <?php
