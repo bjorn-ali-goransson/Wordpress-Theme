@@ -12,7 +12,7 @@ gulp.task('iis', function(){
 
 
 gulp.task('clean', function(){
-  return del('vendor/**/*');
+  return del('vendor');
 });
 
 var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
