@@ -10,7 +10,7 @@ class Walker_Widget_Sidebar_Per_Page extends Walker {
 		'parent' => 'post_parent', 
 		'id' => 'ID'
 	);
-  function start_el(&$output, $page, $depth=0, $args=array()) {
+  function start_el(&$output, $page, $depth = 0, $args = array(), $current_object_id = 0) {
     register_sidebar(array(
       'name'          => str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $depth) . __('Sidebars for page:') . " \"" . $page->post_title . "\"",
       'id'            => "page-" . $page->ID,
