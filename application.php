@@ -37,15 +37,16 @@ add_my_admin_style('admin.less');
 
 
 
-/* CUSTOM OPTIONS */
+/* CUSTOM OPTIONS PAGES */
 
-//add_long_text_field_to_settings('footer_text', 'Footer text');
-
-
-
-/* PROFILE OPTIONS */
-
-//add_text_field_to_profile('postal_code', 'Postal code');
+//acf_add_options_sub_page(array(
+//  'page_title' => 'Footer settings',
+//  'menu_title' => 'Footer settings',
+//  'menu_slug' => 'settings-footer',
+//  'capability' => 'edit_posts',
+//  'redirect' => false,
+//  'parent_slug' => 'options-general.php',
+//));
 
 
 
