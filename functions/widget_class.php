@@ -4,7 +4,7 @@ abstract class My_Widget extends WP_Widget {
 	protected $identifier = null;
 	protected $label = null;
 	protected $description = null;
-	protected $has_title = false;
+	protected $has_title = true;
 	
 	function My_Widget() {
 		if($this->identifier == null){
