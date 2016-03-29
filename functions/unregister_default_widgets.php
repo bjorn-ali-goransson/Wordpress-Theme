@@ -9,8 +9,8 @@ add_action('widgets_init', function(){
   
   foreach($wp_widget_factory->widgets as $widget){
     $reflector = new ReflectionClass(get_class($widget));
-
-    if(strpos($reflector->getFileName(), 'default-widgets.php') !== FALSE){
+    
+    if(strpos($reflector->getFileName(), 'wp-includes\widgets') !== FALSE){
       unregister_widget(get_class($widget));
       continue;
     }
