@@ -20,6 +20,7 @@ abstract class My_Widget extends WP_Widget {
   
 	function form( $instance ) {
     if(!$this->has_title){
+      echo '<p></p>';
       return;
     }
 
