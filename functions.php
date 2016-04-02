@@ -8,6 +8,10 @@ foreach(glob(dirname(__FILE__) . '/functions/*.php') as $filename){
   require_once $filename;
 }
 
+foreach(glob(dirname(__FILE__) . '/functions/**/*.php') as $filename){
+  require_once $filename;
+}
+
 
 
 /* APPLICATION LOGIC */
