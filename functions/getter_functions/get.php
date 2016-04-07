@@ -4,7 +4,7 @@
 
 /* GET */
 
-function get($id, $meta_key, $meta_value, $properties = array()){
+function get($id, $properties = array()){
   $post_object = get_post($id);
   
   if($post_object == NULL){
