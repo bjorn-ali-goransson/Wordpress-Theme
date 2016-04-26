@@ -4,16 +4,21 @@
 
 /* PLUCK */
 
-function pluck($key, $input){
-  if(is_array($key) || !is_array($input)){
-    return array();
+function pluck($key, $array){
+  $result = array();
+  
+  foreach($array as $element){
+    if(is_array($element)){
+      if(array_key_exists($key, $v)){
+        $result[] = $element[$key];
+      }
+    }
+    if(is_object($element)){
+      if(property_exists($element, $key)){
+        $result[] = $element->$key;
+      }
+    }
   }
   
-  $array = array();
-  
-  foreach($input as $v){
-    if(array_key_exists($key, $v)) $array[]=$v[$key];
-  }
-  
-  return $array;
+  return $result;
 }
