@@ -35,38 +35,3 @@ add_shortcode('one_sixth', function($attributes, $content){ return get_html_elem
 
 add_shortcode('show_for_mobile', function($attributes, $content){ return get_html_element('hidden-md hidden-lg hidden-xl', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content))); });
 add_shortcode('hide_for_mobile', function($attributes, $content){ return get_html_element('hidden-xs hidden-sm', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content))); });
-
-
-
-/* UNWRAP ELEMENT FROM ELEMENT */
-
-function unwrap_element_from_element($content, $child, $parent){
-  $content = preg_replace('@<' . $parent . '[^>]*>\s*(<' . $child . '[^>]*>)@', '$1', $content);
-  $content = preg_replace('@(</' . $child . '>)\s*</' . $parent . '>@', '$1', $content);
-
-  return $content;
-}
-
-
-
-/* TRIM LEADING AND TRAILING P TAGS */
-
-function trim_leading_and_trailing_p_tags($content){
-  $content = trim($content);
-
-  if(strpos($content, '</p>') === 0){
-    $content = substr($content, strlen('</p>'));
-  }
-
-  if(strrpos($content, '<p>') == strlen($content) - strlen('<p>')){
-    $content = substr($content, 0, strlen($content) - strlen('<p>'));
-  }
-
-  return trim($content);
-}
-
-
-
-/* OTHER */
-
-add_shortcode('link_button', function($attributes, $content){ return get_html_element('btn btn-primary', $attributes, do_shortcode(trim_leading_and_trailing_p_tags($content)), 'a'); });
