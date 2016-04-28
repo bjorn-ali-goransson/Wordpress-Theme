@@ -59,6 +59,8 @@ add_my_admin_style('admin.less');
 //  'after_widget' => '</section>',
 //));
 
+remove_default_widgets();
+
 
 
 /* MENUS */
