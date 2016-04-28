@@ -1,9 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../get_current_url.php';
-require_once dirname(__FILE__) . '/noop_shortcode.php';
-require_once dirname(__FILE__) . '/../if_post_contains_shortcode.php';
-  
 
 
 /* FORCE LOGIN SHORTCODE */
