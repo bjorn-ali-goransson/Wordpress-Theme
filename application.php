@@ -52,12 +52,7 @@ add_my_admin_style('admin.less');
 
 /* SIDEBARS */
 
-//register_sidebar(array(
-//  'name' => '',
-//  'id' => '',
-//  'before_widget' => '<section id="%1$s" class="widget %2$s">',
-//  'after_widget' => '</section>',
-//));
+//add_sidebar('id', 'title');
 
 remove_default_widgets();
 
