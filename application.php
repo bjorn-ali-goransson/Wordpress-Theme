@@ -39,14 +39,16 @@ add_my_admin_style('admin.less');
 
 /* CUSTOM OPTIONS PAGES */
 
-//acf_add_options_sub_page(array(
-//  'page_title' => 'Footer settings',
-//  'menu_title' => 'Footer settings',
-//  'menu_slug' => 'settings-footer',
-//  'capability' => 'edit_posts',
-//  'redirect' => false,
-//  'parent_slug' => 'options-general.php',
-//));
+//if(function_exists('acf_add_options_sub_page')){
+//  acf_add_options_sub_page(array(
+//    'page_title' => 'Footer settings',
+//    'menu_title' => 'Footer settings',
+//    'menu_slug' => 'settings-footer',
+//    'capability' => 'edit_posts',
+//    'redirect' => false,
+//    'parent_slug' => 'options-general.php',
+//  ));
+//}
 
 
 
