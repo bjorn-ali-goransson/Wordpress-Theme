@@ -27,6 +27,7 @@ function no_menu_error_message(){}
 
 function my_menu($location = "top", $class_names = "nav"){
   $GLOBALS["my_menu_class_names"] = $class_names;
+  $GLOBALS["my_menu_location"] = $location;
   wp_nav_menu(array(
     'theme_location' => $location,
     'container'  => false,
@@ -34,4 +35,5 @@ function my_menu($location = "top", $class_names = "nav"){
     'fallback_cb' => 'echo_menu_error_message',
   ));
   unset($GLOBALS["my_menu_class_names"]);
+  unset($GLOBALS["my_menu_location"]);
 }
