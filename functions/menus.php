@@ -28,7 +28,6 @@ function no_menu_error_message(){}
 function my_menu($location = "top", $class_names = "nav"){
   wp_nav_menu(array(
     'theme_location' => $location,
-    'depth'    => 1,
     'container'  => false,
     'menu_class'   => $class_names,
     'fallback_cb' => 'echo_menu_error_message',
