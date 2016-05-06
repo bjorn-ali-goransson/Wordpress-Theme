@@ -11,7 +11,7 @@ function remove_default_widgets(){
     foreach($wp_widget_factory->widgets as $widget){
       $reflector = new ReflectionClass(get_class($widget));
     
-      if(strpos($reflector->getFileName(), 'wp-includes\widgets') !== FALSE){
+      if(strpos($reflector->getFileName(), 'wp-includes') !== FALSE){
         unregister_widget(get_class($widget));
         continue;
       }
