@@ -4,11 +4,13 @@
 
 /* GET HTML ELEMENT */
 
-function get_html_element($class_name, $attributes, $content, $tag_name = 'div'){
-  if(isset($attributes['class'])){
-    $attributes['class'] .= ' ' . $class_name;
-  } else {
-    $attributes['class'] = $class_name;
+function get_html_element($tag_name, $attributes, $content, $class_name = NULL){
+  if($class_name){
+    if(isset($attributes['class'])){
+      $attributes['class'] .= ' ' . $class_name;
+    } else {
+      $attributes['class'] = $class_name;
+    }
   }
 
   $attributes_output = '';

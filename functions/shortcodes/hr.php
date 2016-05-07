@@ -1,5 +1,9 @@
 <?php
+  
+require_once dirname(__FILE__) . '/../utility_functions/get_html_element.php';
 
-add_shortcode('hr', function($attributes, $content){
-  return '<hr>';
-});
+
+
+/* HR SHORTCODE */
+
+add_shortcode('hr', function($attributes, $content){ return get_html_element('div', $attributes, $content); });
