@@ -4,12 +4,6 @@ var gulp = require('gulp');
 var del = require('del');
 var _ = require('underscore');
 
-var iis = require('gulp-iis-express');
-
-gulp.task('iis', function(){
-  return iis({sitePaths:['MyWebsiteNameInApplicationHost.config']});
-});
-
 
 gulp.task('clean', function(){
   return del('vendor');
