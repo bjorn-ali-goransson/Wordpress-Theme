@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/get_current_url.php';
+require_once dirname(__FILE__) . '/utility_functions/get_current_url.php';
   
 
 
