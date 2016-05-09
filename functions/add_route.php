@@ -47,9 +47,10 @@ add_action('init', function(){
   $site_url = get_option('home');
   $slash_position = strpos($site_url, '/', strlen('https://'));
   $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
-  
+  $uri = utf8_encode($_SERVER['REQUEST_URI']);
+
   foreach($GLOBALS['my-routes'] as $route){
-    if(strpos($_SERVER['REQUEST_URI'], $site_url . $route->url) !== 0){
+    if(strpos($uri, $site_url . $route->url) !== 0){
       continue;
     }
 
