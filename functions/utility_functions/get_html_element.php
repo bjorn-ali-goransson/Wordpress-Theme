@@ -20,5 +20,5 @@ function get_html_element($tag_name, $attributes, $content, $class_name = NULL){
     $attributes_output .= $key.'="'.$value.'"';
   }
 
-  return '<' . $tag_name . $attributes_output . '>' . $content . '</' . $tag_name . '>';
+  return '<' . $tag_name . $attributes_output . '>' . ($tag_name != 'br' && $tag_name != 'hr' ? $content . '</' . $tag_name . '>' : '');
 }
