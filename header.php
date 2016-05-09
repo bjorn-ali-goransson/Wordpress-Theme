@@ -28,7 +28,7 @@
   <!--[if lt IE 9]>
     <div class="alert alert-warning"><div class="container">You are using an outdated browser. <a href="http://browsehappy.com/" class="alert-link">Upgrade your browser today</a></div></div>
   <![endif]-->
-    
+  
   <nav class="navbar" role="navigation">
     <div class="container">
       <div class="navbar-header">
