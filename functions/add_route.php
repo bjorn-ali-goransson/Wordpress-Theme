@@ -47,13 +47,13 @@ add_action('init', function(){
   $site_url = get_option('home');
   $slash_position = strpos($site_url, '/', strlen('https://'));
   $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
-  $uri = utf8_encode($_SERVER['REQUEST_URI']);
-
+  $uri = on_iis() ? utf8_encode($_SERVER['REQUEST_URI']) : urldecode($_SERVER['REQUEST_URI']);
+  
   foreach($GLOBALS['my-routes'] as $route){
     if(strpos($uri, $site_url . $route->url) !== 0){
       continue;
     }
-
+    
     if(!isset($route->options['public']) && !is_user_logged_in()){
       continue;
     }
