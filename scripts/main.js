@@ -1,5 +1,6 @@
 var $ = jQuery;
 var $window = $(window);
+var $document = $(document);
 var $body;
 
 $(function () { $body = $(document.body); });
