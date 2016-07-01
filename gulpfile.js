@@ -9,7 +9,7 @@ gulp.task('clean', function(){
   return del('vendor');
 });
 
-var extensions = ['js', 'css', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
+var extensions = ['js', 'css', 'scss', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
 
 gulp.task('deps', ['clean'], function () {
   return gulp
