@@ -1,5 +1,3 @@
-/// <vs BeforeBuild='default' />
-
 var gulp = require('gulp');
 var del = require('del');
 var _ = require('underscore');
