@@ -3,9 +3,16 @@ var del = require('del');
 var _ = require('underscore');
 
 
+
+/* CLEAN */
+
 gulp.task('clean', function(){
   return del('vendor');
 });
+
+
+
+/* DEPS */
 
 var extensions = ['js', 'css', 'scss', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
 
@@ -26,6 +33,10 @@ gulp.task('deps', ['clean'], function () {
   )
   .pipe(gulp.dest('vendor'));
 });
+
+
+
+/* LESS */
 
 var less = require('gulp-less');
 var watch = require('gulp-watch');
