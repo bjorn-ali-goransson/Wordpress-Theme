@@ -1,10 +1,10 @@
 var gulp = require('gulp');
-var del = require('del');
-var _ = require('underscore');
 
 
 
 /* CLEAN */
+
+var del = require('del');
 
 gulp.task('clean', function(){
   return del('vendor');
@@ -13,6 +13,8 @@ gulp.task('clean', function(){
 
 
 /* DEPS */
+
+var _ = require('underscore');
 
 var extensions = ['js', 'css', 'scss', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
 
