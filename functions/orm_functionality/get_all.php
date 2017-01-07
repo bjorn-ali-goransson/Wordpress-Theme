@@ -52,7 +52,7 @@ function get_all_users($properties = array()){
       $user->$meta_key = get_user_meta($user->id, $meta_key, TRUE);
     }
 
-    $users[$user->id] = $user;
+    $users[] = $user;
   }
 
   return $users;
@@ -88,7 +88,7 @@ function get_all_posts($post_type, $properties = array()){
       }
     }
 
-    $posts[$post->id] = $post;
+    $posts[] = $post;
   }
 
   return $posts;
