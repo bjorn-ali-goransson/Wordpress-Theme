@@ -79,13 +79,9 @@ function get_all_posts($post_type, $properties = array()){
       'id' => $post_object->ID,
       'name' => $post_object->post_title,
     );
-
+    
     foreach($properties as $property){
-      if(isset($post_object->$property)){
-        $post->$property = $post_object->$property;
-      } else {
-        $post->$property = get_post_meta($post->id, $property, TRUE);
-      }
+      $post->$property = $post_object->$property;
     }
 
     $posts[] = $post;
