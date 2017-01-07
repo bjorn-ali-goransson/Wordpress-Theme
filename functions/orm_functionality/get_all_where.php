@@ -22,6 +22,10 @@ function get_all_where($post_type, $meta_key, $meta_value, $properties = array()
     
     foreach($properties as $property){
       $post->$property = $post_object->$property;
+
+      if($post->$property === ''){
+        $post->$property = NULL;
+      }
     }
     
     $posts[] = $post;

@@ -82,6 +82,10 @@ function get_all_posts($post_type, $properties = array()){
     
     foreach($properties as $property){
       $post->$property = $post_object->$property;
+
+      if($post->$property === ''){
+        $post->$property = NULL;
+      }
     }
 
     $posts[] = $post;
