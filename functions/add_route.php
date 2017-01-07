@@ -60,7 +60,11 @@ add_action('init', function(){
 
     if($route->callback){
       $callback = $route->callback;
-      $callback();
+      $result = $callback();
+
+      if($result){
+        echo json_encode($result);
+      }
     }
 
     if($route->path){
