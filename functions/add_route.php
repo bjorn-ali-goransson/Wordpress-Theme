@@ -50,7 +50,58 @@ add_action('init', function(){
   $uri = on_iis() ? utf8_encode($_SERVER['REQUEST_URI']) : urldecode($_SERVER['REQUEST_URI']);
   
   foreach($GLOBALS['my-routes'] as $route){
-    if(strpos($uri, $site_url . $route->url) !== 0){
+    $route_segments = explode('/', $route->url);
+    $uri_segments = explode('/', $uri);
+    $route_values = array();
+
+    if(strpos($route->url, ':') !== FALSE){
+      if(count($route_segments) != count($uri_segments)){
+        continue;
+      }
+
+      $route_match = TRUE;
+
+      foreach($route_segments as $i => $route_segment){
+        $uri_segment = $uri_segments[$i];
+
+        if(strpos($route_segment, ':') !== FALSE) {
+          continue;
+        }
+
+        if($route_segment === $uri_segment){
+          continue;
+        }
+        
+        $route_match = FALSE;
+      }
+
+      if(!$route_match){
+        echo 'no';
+        continue;
+      }
+
+      foreach($route_segments as $i => $route_segment){
+        $uri_segment = $uri_segments[$i];
+
+        if(strpos($route_segment, ':') !== 0) {
+          continue;
+        }
+
+        $route_values[substr($route_segment, 1)] = $uri_segment;
+      }
+
+      $new_route_values = array();
+      
+      $reflection = new ReflectionFunction($route->callback);
+
+      foreach ($reflection->getParameters() as $parameter) {
+        $new_route_values[] = $route_values[$parameter->name];
+      }
+
+      $route_values = $new_route_values;
+    }
+
+    if(empty($route_values) && strpos($uri, $site_url . $route->url) !== 0){
       continue;
     }
     
@@ -60,7 +111,7 @@ add_action('init', function(){
 
     if($route->callback){
       $callback = $route->callback;
-      $result = $callback();
+      $result = call_user_func_array($callback, $route_values);
 
       if($result){
         echo json_encode($result);
