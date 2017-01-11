@@ -114,7 +114,12 @@ add_action('init', function(){
       $result = call_user_func_array($callback, $route_values);
 
       if($result){
-        echo json_encode($result);
+        if(is_string($result)){
+          echo $result;
+        } else {
+          header('Content-Type: application/json; charset=utf-8');
+          echo json_encode($result);
+        }
       }
     }
 
