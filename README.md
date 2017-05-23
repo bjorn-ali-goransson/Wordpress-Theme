@@ -11,28 +11,10 @@ I've identified three different types of code that typically go into a Wordpress
 
 Don't put anything inside `functions.php` - you know it's wrong. Resist the temptation!
 
-Features
---------
-
-* Bootstrap 3 and Font Awesome included through Bower
-* Gulp (albeit simplistic) assembly of bower components into `vendor/` directory
-* LessJS compilation, minification and watch (using Gulp), along with inclusion from PHP (`add_my_style('style.less')`) without hooks
-* Simple inclusion of scripts like `add_my_script('angular.min.js', 'angular')` (from bower) or `add_my_admin_script('admin.js', array('jquery'));` (in your scripts directory)
-* Includes your `style.less` in the TinyMCE WYSIWYG editor (see `styles/wp-editor-styles.less`)
-* Add custom HTTP routes with `add_route('/register-competitor', function(){ echo 'hello!'; })` or `add_public_route('/register-competitor', function(){ echo 'hello!'; })`
-* Register non-public custom post types (for application development) with `add_post_type('project', 'Projects')`
-* Get an array of posts (as simple stdClass-objects) pre-populated with id, name (`post_title`) and any post meta you wish by calling `get_all('project', array('project_manager', 'members'))`
-* Do a simple meta search (much as the previous function) by calling `get_where('project', 'project_manager', 'ali', array('members'))`
-* Add custom options to the admin GUI by simply calling `add_text_field_to_settings('google_secret', 'Google API Secret')`. Supports other types such as long text, number, boolean, selection of a single post, category.
-* Add custom fields to the user screen by a similar API as the custom options, `add_text_field_to_profile('postal_code', 'Postal code');`.
-* Removes the default "Hello World!" (Post ID: 1) and "Test Page" (Post ID: 2) upon theme activation
-* *Function modules*: Drop any php file inside `functions/`, and it will be required (`once`) before `application.php`
-* *Application modules*: Drop any php file inside `application/`, and it will be required (`once`) after `application.php`
-
 Instructions
 ------------
 
-Prerequisites: [node](https://nodejs.org/), `npm install bower -g`, `npm install gulp -g`.
+Prerequisites: [git](https://git-scm.com/) [node](https://nodejs.org/), `npm install brunch -g`.
 
 To download, start a command prompt and create a new directory for your theme:
 
@@ -43,15 +25,11 @@ mkdir "my-theme" & cd "my-theme"
 Then do:
 
 ```
-git clone https://github.com/bornemix/Wordpress-Theme.git . & rmdir /S /Q .git & del .git* & del README.md & del application\logout_route.php & setup
+git clone https://github.com/bjorn-ali-goransson/Wordpress-Theme.git . & rmdir /S /Q .git & del .git* & del README.md & del application\logout_route.php & setup
 ```
 
-To install npm and bower dependencies, run gulp dependency packaging, and compile `.less` files, run `setup.bat`. (included in the above command)
+To build everything, run `build.bat`.
 
-To run gulp dependency packaging, run `deps.bat`.
+To watch-build everything, run `watch.bat`.
 
-To compile your `.less` files, run `less.bat`.
-
-To watch-compile your `.less` files, run `less-watch.bat`.
-
-When publishing your theme, there's no need to transfer the `node_modules` or `bower_components` to the target server. They are not (and should not) be used by the theme.
+When publishing your theme, there's no need to transfer the `node_modules` to the target server. They are not (and should not) be used by the theme.
