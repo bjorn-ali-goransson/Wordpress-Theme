@@ -1,16 +1,26 @@
 {
   "name": "Wordpress-Theme",
   "version": "1.0.0",
-  "devDependencies": {
-    "del": "^1.1.1",
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-less": "^3.0.3",
-    "gulp-livereload": "^3.8.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-watch": "^4.3.5",
-    "underscore": "^1.7.0"
-  },
   "author": "",
-  "private": true
+  "private": true,
+  "repository": "",
+  "scripts": {
+    "start": "brunch watch --server",
+    "build": "brunch build --production"
+  },
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "auto-reload-brunch": "^2.7.1",
+    "babel-brunch": "~6.0",
+    "babel-preset-latest": "^6",
+    "brunch": "^2",
+    "clean-css-brunch": "^2",
+    "copycat-brunch": "^1.1.0",
+    "sass-brunch": "^2.10.4",
+    "uglify-js-brunch": "^2"
+  }
 }

@@ -89,8 +89,8 @@ add_action('admin_enqueue_scripts', function(){
 /* GET MY SCRIPT OR STYLE OBJECT */
   
 function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
-  $is_script = strrpos($name, '.js', 0) === strlen($name) - strlen('.js');
-  $is_less = strrpos($name, '.less', 0) === strlen($name) - strlen('.less');
+  $is_script = substr($name, -strlen('.js')) == '.js';
+  $is_scss = substr($name, -strlen('.scss')) == '.scss';
   
   if($arg2 == NULL && $arg3 == NULL){
     $vendor = '';
@@ -130,11 +130,11 @@ function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
     $path .= $vendor;
     $path .= '/';
   } else {
-    if($is_less){
+    if($is_scss){
       $name .= '.css';
       $path .= 'styles/compiled/';
     } else if($is_script) {
-      $path .= 'scripts/';
+      $path .= 'scripts/compiled/';
     } else {
       $path .= 'styles/';
     }
@@ -160,7 +160,7 @@ function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
 
 add_action('admin_enqueue_scripts', function(){
   if(is_admin()){
-    $style_object = get_my_script_or_style_object('wp-editor-styles.less');
+    $style_object = get_my_script_or_style_object('wp-editor-styles.scss');
 
     add_editor_style($style_object->url);
   }

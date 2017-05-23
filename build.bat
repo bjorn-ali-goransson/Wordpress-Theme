@@ -1,3 +1,3 @@
 @echo off
-call gulp less
+call brunch build
 @echo on

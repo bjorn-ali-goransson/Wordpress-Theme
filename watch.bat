@@ -1,3 +1,3 @@
 @echo off
-call gulp deps
+call brunch watch
 @echo on
