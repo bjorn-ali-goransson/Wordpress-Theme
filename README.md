@@ -30,6 +30,8 @@ git clone https://github.com/bjorn-ali-goransson/Wordpress-Theme.git . & rmdir /
 
 To build everything, run `build.bat`.
 
+To build everything for production, run `build-production.bat`.
+
 To watch-build everything, run `watch.bat`.
 
 When publishing your theme, there's no need to transfer the `node_modules` to the target server. They are not (and should not) be used by the theme.
