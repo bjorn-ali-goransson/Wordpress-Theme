@@ -1,5 +1,3 @@
-// See http://brunch.io for documentation.
-
 exports.conventions = {
   ignored: [
     '**/compiled/*',
@@ -31,9 +29,19 @@ exports.files = {
 };
 
 exports.plugins = {
-  // babel: {presets: ['latest']}
   copycat:{
     "fonts" : ["node_modules/font-awesome/fonts"],
     onlyChanged: true
+  },
+  autoReload: {
+    match: {
+      stylesheets: /.s?css$/,
+    }
+  }
+};
+
+exports.modules = {
+  autoRequire: {
+    'ripts/compiled/main.js': ['scripts/main.js']
   }
 };
