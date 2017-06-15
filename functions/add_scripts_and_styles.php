@@ -88,28 +88,11 @@ add_action('admin_enqueue_scripts', function(){
 
 /* GET MY SCRIPT OR STYLE OBJECT */
   
-function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
+function get_my_script_or_style_object($name, $dependencies = ''){
   $is_script = substr($name, -strlen('.js')) == '.js';
+  $is_css = substr($name, -strlen('.css')) == '.css';
   $is_scss = substr($name, -strlen('.scss')) == '.scss';
   
-  if($arg2 == NULL && $arg3 == NULL){
-    $vendor = '';
-    $dependencies = '';
-  }
-  if($arg2 != NULL && $arg3 == NULL){
-    if(is_array($arg2)){
-      $vendor = '';
-      $dependencies = $arg2;
-    } else {
-      $vendor = $arg2;
-      $dependencies = '';
-    }
-  }
-  if($arg2 != NULL && $arg3 != NULL){
-    $vendor = $arg2;
-    $dependencies = $arg3;
-  }
-
   if(strpos($name, 'http://') === 0 || strpos($name, 'https://') === 0){
     return (object)array(
       'id' => $name,
@@ -125,16 +108,22 @@ function get_my_script_or_style_object($name, $arg2 = NULL, $arg3 = NULL){
 
   $path = '/';
 
-  if($vendor != ''){
-    $path .= 'vendor/';
-    $path .= $vendor;
-    $path .= '/';
-  } else {
-    if($is_scss){
-      $name .= '.css';
-      $path .= 'styles/compiled/';
-    } else if($is_script) {
+  if($is_scss){
+    $name .= '.css';
+    $path .= 'styles/compiled/';
+  }
+  
+  if($is_script) {
+    if(strpos($name, '/') === 0){
+      $path = '';
+    } else {
       $path .= 'scripts/compiled/';
+    }
+  }
+  
+  if($is_css) {
+    if(strpos($name, '/') === 0){
+      $path = '';
     } else {
       $path .= 'styles/';
     }
