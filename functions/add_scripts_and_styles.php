@@ -134,12 +134,18 @@ function get_my_script_or_style_object($name, $dependencies = ''){
   }
 
   $path .= $name;
+  
+  $version = @filemtime(dirname(__FILE__) . '/..' . $path);
+  
+  if($version) {
+    $version = substr(dechex(substr($version . '', 5)), -3);
+  }
 
   return (object)array(
     'id' => (empty($vendor) ? '' : $vendor . '/') . $name,
     'url' => get_template_directory_uri() . $path,
     'dependencies' => $dependencies,
-    'version' => strpos($_SERVER["HTTP_HOST"], 'localhost') === FALSE ? @filemtime(dirname(__FILE__) . '/..' . $path) : NULL,
+    'version' => strpos($_SERVER["HTTP_HOST"], 'localhost') === FALSE ? $version : NULL,
   );
 }
 
