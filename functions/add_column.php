@@ -5,22 +5,34 @@
 /* ADD COLUMN */
 
 function add_column($post_type, $title, $action){
-  if(!isset($GLOBALS['custom-column-count'])){
-    $GLOBALS['custom-column-count'] = 0;
+  if(!isset($GLOBALS['custom-columns'])){
+    $GLOBALS['custom-columns'] = array();
   }
   
-  $GLOBALS['custom-column-count']++;
-  
-  add_filter('manage_' . $post_type . '_posts_columns',function( $columns ) use ($title) {
-      $columns['custom_column_' . $GLOBALS['custom-column-count']] = $title;
-      return $columns;
-  });
-  
-  add_action( 'manage_' . $post_type . '_posts_custom_column', function ( $column_id, $post_id ) use ($action) {
-      if($column_id != 'custom_column_' . $GLOBALS['custom-column-count']){
-          return;
+  if(!isset($GLOBALS['custom-columns'][$post_type])){
+    $GLOBALS['custom-columns'][$post_type] = array();
+    
+    add_filter('manage_' . $post_type . '_posts_columns', function($columns) use ($post_type) {
+        foreach($GLOBALS['custom-columns'][$post_type] as $column_number => $column_object){
+          $columns['custom_column_' . $column_number] = $column_object->title;
+        }
+        
+        return $columns;
+    });
+    
+    add_action('manage_' . $post_type . '_posts_custom_column', function($column_id, $post_id) use ($post_type) {
+      foreach($GLOBALS['custom-columns'][$post_type] as $column_number => $column_object){
+        if('custom_column_' . $column_number == $column_id){
+          $action = $column_object->action;
+          $action($post_id);
+        }
       }
-      
-      $action($post_id);
-  }, 10, 2 );
+    }, 10, 2);
+  }
+  
+  $GLOBALS['custom-columns'][$post_type][] = (object)array(
+    'post_type' => $post_type,
+    'title' => $title,
+    'action' => $action,
+  );
 }
