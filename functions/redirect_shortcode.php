@@ -8,6 +8,10 @@ add_shortcode('redirect', function($attributes, $content){});
 
 add_action('template_redirect', function(){
   global $post;
+  
+  if(!is_single()){
+    return;
+  }
 
   if(strpos($post->post_content, '[redirect]') === FALSE){
     return;
