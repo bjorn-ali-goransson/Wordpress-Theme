@@ -6,12 +6,12 @@ require_once dirname(__FILE__) . '/get_version.php';
 
 /* ADD MY ADMIN STYLE */
 
-function add_my_admin_style($name, $dependencies){
+function add_my_admin_style($name, $dependencies = array()){
   if(!isset($GLOBALS['my_admin_styles'])){
     $GLOBALS['my_admin_styles'] = array();
   }
   
-  $GLOBALS['my_admin_styles'][] = (object)array('name' => $name, 'dependendencies' => $dependencies);
+  $GLOBALS['my_admin_styles'][] = (object)array('name' => $name, 'dependencies' => $dependencies);
 }
 
 add_action('admin_enqueue_scripts', function(){

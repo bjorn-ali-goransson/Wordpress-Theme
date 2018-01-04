@@ -6,12 +6,12 @@ require_once dirname(__FILE__) . '/get_version.php';
 
 /* ADD MY STYLE */
 
-function add_my_style($name, $dependencies){
+function add_my_style($name, $dependencies = array()){
   if(!isset($GLOBALS['my_styles'])){
     $GLOBALS['my_styles'] = array();
   }
 
-  $GLOBALS['my_styles'][] = (object)array('name' => $name, 'dependendencies' => $dependencies);
+  $GLOBALS['my_styles'][] = (object)array('name' => $name, 'dependencies' => $dependencies);
 }
 
 add_action('wp_enqueue_scripts', function(){

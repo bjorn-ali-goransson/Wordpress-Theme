@@ -6,12 +6,12 @@ require_once dirname(__FILE__) . '/get_version.php';
 
 /* ADD MY SCRIPT */
 
-function add_my_script($name, $dependencies){
+function add_my_script($name, $dependencies = array()){
   if(!isset($GLOBALS['my_scripts'])){
     $GLOBALS['my_scripts'] = array();
   }
 
-  $GLOBALS['my_scripts'][] = (object)array('name' => $name, 'dependendencies' => $dependencies);
+  $GLOBALS['my_scripts'][] = (object)array('name' => $name, 'dependencies' => $dependencies);
 }
 
 add_action('wp_enqueue_scripts', function(){

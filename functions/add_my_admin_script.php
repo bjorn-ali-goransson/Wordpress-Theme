@@ -6,12 +6,12 @@ require_once dirname(__FILE__) . '/get_version.php';
 
 /* ADD MY ADMIN SCRIPT */
 
-function add_my_admin_script($name, $dependencies){
+function add_my_admin_script($name, $dependencies = array()){
   if(!isset($GLOBALS['my_admin_scripts'])){
     $GLOBALS['my_admin_scripts'] = array();
   }
 
-  $GLOBALS['my_admin_scripts'][] = (object)array('name' => $name, 'dependendencies' => $dependencies);
+  $GLOBALS['my_admin_scripts'][] = (object)array('name' => $name, 'dependencies' => $dependencies);
 }
 
 add_action('admin_enqueue_scripts', function(){
