@@ -6,21 +6,16 @@ force_login_to_site();
 
 /* SCRIPTS */
 
-// add_my_script('angular.min.js', 'angular');
-// add_my_script('js/transition.js', 'bootstrap', array('jquery'));
-// add_my_script('js/collapse.js', 'bootstrap', array('jquery'));
-// add_my_script('lodash.min.js', 'lodash');
-add_my_script('vendor.js');//, array('lodash/lodash.min.js', 'jquery'));
-add_my_script('main.js');//, array('lodash/lodash.min.js', 'jquery'));
-
-add_my_admin_script('admin.js', array('jquery'));
+add_my_script('main.js');
+add_my_admin_script('admin.js');
 
 
 
 /* STYLES */
 
-add_my_style('main.scss');
-add_my_admin_style('admin.scss');
+add_my_style('main.css');
+add_my_admin_style('admin.css');
+add_my_editor_style('wp-editor-styles.css');
 
 
 
