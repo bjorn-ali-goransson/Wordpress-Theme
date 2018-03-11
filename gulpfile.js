@@ -1,88 +1,29 @@
-var gulp = require('gulp');
+const gulp = require('gulp');
+const base64 = require('gulp-css-base64');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const cleanCSS = require('gulp-clean-css');
+const livereload = require('gulp-livereload');
+const filter = require('gulp-filter');
 
-
-
-/* CLEAN */
-
-var del = require('del');
-
-gulp.task('clean', function(){
-  return del('vendor');
+gulp.task('styles', () => {
+  return gulp.src('./styles/**/*.scss')
+    .pipe(base64())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['last 4 versions'],
+      cascade: false
+    }))
+    .pipe(cleanCSS({ compatibility: 'ie8' }))
+    .pipe(gulp.dest('./styles'))
+    .pipe(filter('**/*.css'))
+    .pipe(livereload());
 });
 
-
-
-/* DEPS */
-
-var _ = require('underscore');
-
-var extensions = ['js', 'css', 'scss', 'less', 'map', 'eot', 'woff', 'woff2', 'ttf', 'svg', 'otf', 'gif', 'png'];
-
-gulp.task('deps', ['clean'], function () {
-  return gulp
-  .src(
-      _
-      .map(extensions, function (extension) {
-          return 'bower_components/**/*.' + extension;
-      })
-      .concat([
-          '!**/Gruntfile.js',
-          '!**/package.js',
-          '!**/grunt.js',
-          '!**/grunt/**/*',
-          '!**/src/**/*'
-      ])
-  )
-  .pipe(gulp.dest('vendor'));
+gulp.task('watch', () => {
+  livereload.listen();
+  gulp.watch('./styles/**/*.scss', ['styles']);
 });
 
-
-
-/* LESS */
-
-var less = require('gulp-less');
-var watch = require('gulp-watch');
-var prefix = require('gulp-autoprefixer');
-var livereload = require('gulp-livereload');
-var rename = require('gulp-rename');
-var path = require('path');
-
-gulp.task('less', wrapPipe(function(success, error) {
-    return gulp.src('./styles/*.less')
-        .pipe(rename(function (path) {
-          path.basename += ".less";
-        }))
-        .pipe(
-          less({
-            globalVars: { 'themeurl': '\'/wp-content/themes/' + path.basename(__dirname) + '\'' }
-
-          })
-          .on('error', error)
-        )
-        .pipe(prefix("last 8 version", "> 1%", "ie 8", "ie 7"), {cascade:true})
-        .pipe(gulp.dest('./styles/compiled/'))
-        .pipe(livereload());
-}));
-gulp.task('watch', function() {
-    livereload.listen();
-    return gulp.watch('./**/*.less', ['less']);  // Watch all the .less files, then run the less task
-});
-
-
-
-/* WRAP PIPE */
-
-function wrapPipe(taskFn) { // https://gist.github.com/just-boris/89ee7c1829e87e2db04c
-  return function(done) {
-    var onSuccess = function() {
-      done();
-    };
-    var onError = function(err) {
-      done(err);
-    }
-    var outStream = taskFn(onSuccess, onError);
-    if(outStream && typeof outStream.on === 'function') {
-      outStream.on('end', onSuccess);
-    }
-  }
-}
+gulp.task('build', ['styles']);
+gulp.task('default', ['styles', 'watch']);
