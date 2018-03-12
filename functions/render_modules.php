@@ -15,7 +15,7 @@ function render_modules(){
         $function_name($module);
       } else {
         ?>
-          <div class="container"><p>Could not display <?= $function_name ?></p></div>
+          <p>Could not display <?= $function_name ?></p>
         <?php
       }
     }
