@@ -2,25 +2,10 @@
 <html ng-app="app">
   <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame (remove this if you use the .htaccess) -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?php wp_title('&raquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="profile" href="http://gmpg.org/xfn/11">
     <!--<link rel="icon" href="<?php bloginfo("url") ?>/favicon.ico">-->
-
-    <!-- Wordpress Head Items -->
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-
-    <style>
-      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
-      .ng-cloak, .x-ng-cloak,
-      .ng-hide:not(.ng-hide-animate) {
-        display: none !important;
-      }
-    </style>
-    
-    <?php output_javascript_variable('siteUrl', get_bloginfo('url') . '/'); ?>
 
     <?php wp_head(); ?>
   </head>
