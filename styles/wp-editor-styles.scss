@@ -17,9 +17,9 @@ html body {
 }
 .table tbody > tr > th,
 .table tbody > tr > td {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 .wpview-wrap {
   max-width: 600px;
