@@ -1,0 +1,64 @@
+
+
+
+/* VARIABLES */
+
+$text-color: #333;
+
+$visited-purple: #6f5499;
+
+$font-family: Arial, sans-serif;
+
+$screen-xs: 320px;
+$screen-tn: 576px;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+$screen-hg: 1400px;
+
+
+
+/* FONT SIZES */
+
+html {
+    font-size: 14px;
+}
+
+
+
+/* GLOBAL ELEMENTS */
+
+body {
+    margin: 0;
+    background: white;
+    font-size: 1rem;
+    font-family: $font-family;
+    line-height: 1.4;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+p {
+    margin-top: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    cursor: pointer;
+}
+
+img[srcset] {
+    max-width: 100%;
+}
+
+input, select, button {
+    font-family: inherit;
+    font-weight: 300;
+}
