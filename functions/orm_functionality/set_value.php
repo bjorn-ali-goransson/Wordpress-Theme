@@ -6,9 +6,9 @@
 
 function set_value($instance, $key, $value){
   if(is_a($instance, 'DynamicUser')){
-    update_user_meta($instance->id, $key, $value);
+    update_field($key, $value, 'user_' . $instance->id);
     return;
   }
 
-  update_post_meta($instance->id, $key, $value);
+  update_field($key, $value, $instance->id);
 }

@@ -1,17 +1,16 @@
 <?php
-  
-require_once dirname(__FILE__) . '/load_properties.php';
+
+require_once dirname(__FILE__) . '/post/_get_post.php';
+require_once dirname(__FILE__) . '/user/get_user.php';
 
 
 
 /* GET */
 
-function get($id, $properties = array()){
-  $post_object = get_post($id);
-  
-  if($post_object == NULL){
-    return NULL;
+function get($type, $id, $properties = array()){
+  if($type == 'user'){
+    return get_user($id, $properties);
   }
-
-  return load_properties($post_object, $properties);
+  
+  return _get_post($id, $properties);
 }

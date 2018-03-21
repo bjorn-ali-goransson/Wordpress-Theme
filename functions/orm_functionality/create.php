@@ -13,8 +13,8 @@ function create($post_type, $post_title, $properties = array()){
     'post_type' => $post_type,
     'post_status' => 'publish',
     'post_title' => $post->name,
-    'post_content' => array_key_exists('post_content', $properties) ? $properties['post_content'] : NULL,
-    'post_excerpt' => array_key_exists('post_excerpt', $properties) ? $properties['post_excerpt'] : NULL,
+    'post_content' => array_key_exists('post_content', $properties) ? $properties['post_content'] : '',
+    'post_excerpt' => array_key_exists('post_excerpt', $properties) ? $properties['post_excerpt'] : '',
     'post_date' => array_key_exists('post_date', $properties) ? $properties['post_date'] : NULL,
     'post_date_gmt' => array_key_exists('post_date_gmt', $properties) ? $properties['post_date_gmt'] : NULL,
   ));
