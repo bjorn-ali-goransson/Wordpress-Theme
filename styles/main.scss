@@ -58,7 +58,12 @@ img[srcset] {
     max-width: 100%;
 }
 
-input, select, button {
+input, textarea, select, button {
     font-family: inherit;
     font-weight: 300;
+}
+
+th {
+    text-align: left;
+    vertical-align: top;
 }
