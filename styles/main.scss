@@ -39,6 +39,9 @@ body {
 a {
     color: inherit;
     cursor: pointer;
+}
+
+a[href^="mailto:"] {
     word-break: break-word;
 }
 
