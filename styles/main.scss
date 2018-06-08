@@ -56,6 +56,9 @@ img[srcset] {
 input, textarea, select, button {
     font-family: inherit;
     font-weight: inherit;
+    background: initial;
+    padding: initial;
+    border: initial;
     border-radius: 0;
 }
 
