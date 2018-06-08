@@ -1,20 +1,14 @@
 const gulp = require('gulp');
-const base64 = require('gulp-css-base64');
 const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCSS = require('gulp-clean-css');
 const livereload = require('gulp-livereload');
 const filter = require('gulp-filter');
+const sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('styles', () => {
   return gulp.src('./styles/**/*.scss')
-    .pipe(base64())
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer({
-      browsers: ['last 4 versions'],
-      cascade: false
-    }))
-    .pipe(cleanCSS({ compatibility: 'ie8' }))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./styles'))
     .pipe(filter('**/*.css'))
     .pipe(livereload());
