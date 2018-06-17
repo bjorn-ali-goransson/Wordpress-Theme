@@ -13,6 +13,7 @@ add_my_admin_script('admin.js');
 
 /* STYLES */
 
+add_my_style('wp-required-styles.css');
 add_my_style('main.css');
 add_my_admin_style('admin.css');
 add_my_editor_style('wp-editor-styles.css');
