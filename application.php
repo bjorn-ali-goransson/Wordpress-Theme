@@ -6,7 +6,7 @@ force_login_to_site();
 
 /* SCRIPTS */
 
-add_my_script('main.js');
+add_my_script('main.js', array('jquery'));
 add_my_admin_script('admin.js');
 
 
