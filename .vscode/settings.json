@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "styles/*.css": true,
+    "styles/*.css.map": true,
+    ".git*": true,
+  }
+}
