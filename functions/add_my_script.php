@@ -17,7 +17,15 @@ function add_my_script($name, $dependencies = array()){
 add_action('wp_enqueue_scripts', function(){
   if(isset($GLOBALS['my_scripts'])){
     foreach($GLOBALS['my_scripts'] as $object){
-      wp_enqueue_script($object->name, get_template_directory_uri() . '/' . 'scripts/' . $object->name, $object->dependencies, get_version('scripts/' . $object->name));
+      $path = $object->name;
+
+      if(strpos($path, '/') === 0){
+        $path = substr($path, 1);
+      } else {
+        $path = 'scripts/' . $path;
+      }
+
+      wp_enqueue_script($object->name, get_template_directory_uri() . '/' . $path, $object->dependencies, get_version($path));
     }
   }
 });
