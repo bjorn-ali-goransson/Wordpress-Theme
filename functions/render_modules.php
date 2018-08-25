@@ -4,7 +4,7 @@
 
 /* RENDER MODULES */
 
-function render_module_example_code($target, $nested_names = array(), $level = 1) {
+function render_module_example_code($module_name, $target, $nested_names = array(), $indent = 3) {
   $contents = '';
 
   foreach($target as $key => $value) {
@@ -14,10 +14,12 @@ function render_module_example_code($target, $nested_names = array(), $level = 1
 
     $names = !empty($nested_names) ? "['" . implode("'], ['", $nested_names) . "']" : NULL;
 
+    $class_name = str_replace('_', '-', implode('-', array_merge(array($module_name), $nested_names, array($key))));
+
     if(is_numeric($value)) {
-      $contents .= str_repeat('  ', $level) . "  <div class=\"image\" responsive-background-image>\n";
-      $contents .= str_repeat('  ', $level) . "    <img class=\"responsive-background-image\" src=\"<?= get_src(\$module{$names}['$key']) ?>\" srcset=\"<?= get_srcset(\$module{$names}['$key']) ?>\" alt=\"\">\n";
-      $contents .= str_repeat('  ', $level) . "  </div>\n";
+      $contents .= str_repeat('  ', $indent) . "<div class=\"$class_name\" responsive-background-image>\n";
+      $contents .= str_repeat('  ', $indent) . "  <img class=\"responsive-background-image\" src=\"<?= get_src(\$module{$names}['$key']) ?>\" srcset=\"<?= get_srcset(\$module{$names}['$key']) ?>\" alt=\"\">\n";
+      $contents .= str_repeat('  ', $indent) . "</div>\n";
 
       continue;
     }
@@ -25,9 +27,9 @@ function render_module_example_code($target, $nested_names = array(), $level = 1
     if(is_array($value)){
       $new_names = array_merge($nested_names, array($key));
 
-      $contents .= str_repeat('  ', $level) . "  <div>\n";
-      $contents .= render_module_example_code($value, $new_names, $level + 1);
-      $contents .= str_repeat('  ', $level) . "  </div>\n";
+      $contents .= str_repeat('  ', $indent) . "<div class=\"$class_name\">\n";
+      $contents .= render_module_example_code($module_name, $value, $new_names, $indent + 1);
+      $contents .= str_repeat('  ', $indent) . "</div>\n";
 
       continue;
     }
@@ -38,7 +40,7 @@ function render_module_example_code($target, $nested_names = array(), $level = 1
       $tag = 'h2';
     }
 
-    $contents .= str_repeat('  ', $level) . "  <$tag><?= \$module{$names}['$key'] ?></$tag>\n";
+    $contents .= str_repeat('  ', $indent) . "<$tag class=\"$class_name\"><?= \$module{$names}['$key'] ?></$tag>\n";
   }
 
   return $contents;
@@ -80,9 +82,11 @@ function render_modules(){
           $contents .= "\n";
           $contents .= "function $function_name(\$module){\n";
           $contents .= "  ?>\n";
+          $contents .= "    <div class=\"" . str_replace('_', '-', $name) . "\">\n";
           
-          $contents .= render_module_example_code($module);
+          $contents .= render_module_example_code($name, $module);
 
+          $contents .= "    </div>\n";
           $contents .= "  <?php\n";
           $contents .= "}\n";
 
