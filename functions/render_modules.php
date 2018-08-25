@@ -4,6 +4,46 @@
 
 /* RENDER MODULES */
 
+function render_module_example_code($target, $nested_names = array(), $level = 1) {
+  $contents = '';
+
+  foreach($target as $key => $value) {
+    if($key == 'acf_fc_layout') {
+      continue;
+    }
+
+    $names = !empty($nested_names) ? "['" . implode("'], ['", $nested_names) . "']" : NULL;
+
+    if(is_numeric($value)) {
+      $contents .= str_repeat('  ', $level) . "  <div class=\"image\" responsive-background-image>\n";
+      $contents .= str_repeat('  ', $level) . "    <img class=\"responsive-background-image\" src=\"<?= get_src(\$module{$names}['$key']) ?>\" srcset=\"<?= get_srcset(\$module{$names}['$key']) ?>\" alt=\"\">\n";
+      $contents .= str_repeat('  ', $level) . "  </div>\n";
+
+      continue;
+    }
+
+    if(is_array($value)){
+      $new_names = array_merge($nested_names, array($key));
+
+      $contents .= str_repeat('  ', $level) . "  <div>\n";
+      $contents .= render_module_example_code($value, $new_names, $level + 1);
+      $contents .= str_repeat('  ', $level) . "  </div>\n";
+
+      continue;
+    }
+
+    $tag = 'div';
+
+    if($key == 'heading'){
+      $tag = 'h2';
+    }
+
+    $contents .= str_repeat('  ', $level) . "  <$tag><?= \$module{$names}['$key'] ?></$tag>\n";
+  }
+
+  return $contents;
+}
+
 function render_modules(){
   $modules = get_field('modules', get_the_ID());
   
@@ -41,27 +81,7 @@ function render_modules(){
           $contents .= "function $function_name(\$module){\n";
           $contents .= "  ?>\n";
           
-          foreach($module as $key => $value) {
-            if($key == 'acf_fc_layout') {
-              continue;
-            }
-
-            if(+$value > 0) {
-              $contents .= "    <div class=\"image\" responsive-background-image>\n";
-              $contents .= "      <img class=\"responsive-background-image\" src=\"<?= get_src(\$module['$key']) ?>\" srcset=\"<?= get_srcset(\$module['$key']) ?>\" alt=\"\">\n";
-              $contents .= "    </div>\n";
-              
-              continue;
-            }
-
-            $tag = 'div';
-
-            if($key == 'heading'){
-              $tag = 'h2';
-            }
-
-            $contents .= "    <$tag><?= \$module['$key'] ?></$tag>\n";
-          }
+          $contents .= render_module_example_code($module);
 
           $contents .= "  <?php\n";
           $contents .= "}\n";
