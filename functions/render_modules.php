@@ -4,31 +4,45 @@
 
 /* RENDER MODULES */
 
-function render_module_example_code($module_name, $target, $nested_names = array(), $indent = 3) {
+function render_module_example_code($variable_name, $class_name, $value, $indent = 3) {
   $contents = '';
 
-  foreach($target as $key => $value) {
+  if(count(array_filter(array_keys($value), 'is_string')) == 0){ // keys are numerical
+    $contents .= str_repeat('  ', $indent) . "<?php\n";
+    $contents .= str_repeat('  ', $indent) . "  foreach($variable_name as \$item){\n";
+    $contents .= str_repeat('  ', $indent) . "    ?>\n";
+
+    $value = array_shift($value);
+
+    $contents .= render_module_example_code('$item', $class_name, $value, $indent + 1);
+
+    $contents .= str_repeat('  ', $indent) . "    <?php\n";
+    $contents .= str_repeat('  ', $indent) . "  }\n";
+    $contents .= str_repeat('  ', $indent) . "?>\n";
+    
+    return $contents;
+  }
+
+  foreach($value as $key => $value) {
     if($key == 'acf_fc_layout') {
       continue;
     }
 
-    $names = !empty($nested_names) ? "['" . implode("'], ['", $nested_names) . "']" : NULL;
-
-    $class_name = str_replace('_', '-', implode('-', array_merge(array($module_name), $nested_names, array($key))));
+    $class_name = $class_name . '-' . str_replace('_', '-', $key);
 
     if(is_numeric($value)) {
       $contents .= str_repeat('  ', $indent) . "<div class=\"$class_name\" responsive-background-image>\n";
-      $contents .= str_repeat('  ', $indent) . "  <img class=\"responsive-background-image\" src=\"<?= get_src(\$module{$names}['$key']) ?>\" srcset=\"<?= get_srcset(\$module{$names}['$key']) ?>\" alt=\"\">\n";
+      $contents .= str_repeat('  ', $indent) . "  <img class=\"responsive-background-image\" src=\"<?= get_src({$variable_name}['$key']) ?>\" srcset=\"<?= get_srcset({$variable_name}['$key']) ?>\" alt=\"\">\n";
       $contents .= str_repeat('  ', $indent) . "</div>\n";
 
       continue;
     }
 
     if(is_array($value)){
-      $new_names = array_merge($nested_names, array($key));
+      $variable_name = $variable_name . "['$key']";
 
       $contents .= str_repeat('  ', $indent) . "<div class=\"$class_name\">\n";
-      $contents .= render_module_example_code($module_name, $value, $new_names, $indent + 1);
+      $contents .= render_module_example_code($variable_name, $class_name, $value, $indent + 1);
       $contents .= str_repeat('  ', $indent) . "</div>\n";
 
       continue;
@@ -40,7 +54,7 @@ function render_module_example_code($module_name, $target, $nested_names = array
       $tag = 'h2';
     }
 
-    $contents .= str_repeat('  ', $indent) . "<$tag class=\"$class_name\"><?= \$module{$names}['$key'] ?></$tag>\n";
+    $contents .= str_repeat('  ', $indent) . "<$tag class=\"$class_name\"><?= {$variable_name}['$key'] ?></$tag>\n";
   }
 
   return $contents;
@@ -78,13 +92,14 @@ function render_modules(){
           $contents .= "<?php\n";
           $contents .= "\n";
           $contents .= "\n";
+          $contents .= "\n";
           $contents .= "/* " . strtoupper(str_replace('_', ' ', $name)) . " */\n";
           $contents .= "\n";
           $contents .= "function $function_name(\$module){\n";
           $contents .= "  ?>\n";
           $contents .= "    <div class=\"" . str_replace('_', '-', $name) . "\">\n";
           
-          $contents .= render_module_example_code($name, $module);
+          $contents .= render_module_example_code('$module', str_replace('_', '-', $name), $module);
 
           $contents .= "    </div>\n";
           $contents .= "  <?php\n";
