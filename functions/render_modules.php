@@ -76,7 +76,7 @@ function render_modules(){
         <?php
 
         if(user_has_role('administrator')){
-          $path = get_template_directory() . '/application/modules';
+          $path = get_stylesheet_directory() . '/application/modules';
           $src = $path . '/' . $name . '.php';
           
           if(file_exists($src)){
