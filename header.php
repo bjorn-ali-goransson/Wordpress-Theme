@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?php wp_title('&raquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <!--<link rel="icon" href="<?php bloginfo("url") ?>/favicon.ico">-->
+    <!--<link rel="icon" href="<?= get_stylesheet_directory_uri() ?>/images/logo.png">-->
 
     <?php wp_head(); ?>
   </head>
