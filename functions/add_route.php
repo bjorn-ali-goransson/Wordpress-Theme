@@ -37,17 +37,34 @@ function add_route($url, $arg2, $options = array()){
 
 
 
-/* OTHER */
+/* LOGIC */
 
 add_action('init', function(){
   if(!isset($GLOBALS['my-routes'])){
     return;
   }
 
+  usort($GLOBALS['my-routes'], function($a, $b){
+    $a = substr_count($a->url, ':');
+    $b = substr_count($b->url, ':');
+
+    if($a > $b){
+      return 1;
+    }
+
+    if($b < $a){
+      return -1;
+    }
+
+    return 0;
+  });
+
   $site_url = get_option('home');
   $slash_position = strpos($site_url, '/', strlen('https://'));
   $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
   $uri = on_iis() ? utf8_encode($_SERVER['REQUEST_URI']) : urldecode($_SERVER['REQUEST_URI']);
+
+  echo json_encode($GLOBALS['my-routes'], JSON_PRETTY_PRINT); die;
   
   foreach($GLOBALS['my-routes'] as $route){
     $route_segments = explode('/', $route->url);
