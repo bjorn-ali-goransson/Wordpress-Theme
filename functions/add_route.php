@@ -64,8 +64,6 @@ add_action('init', function(){
   $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
   $uri = on_iis() ? utf8_encode($_SERVER['REQUEST_URI']) : urldecode($_SERVER['REQUEST_URI']);
 
-  echo json_encode($GLOBALS['my-routes'], JSON_PRETTY_PRINT); die;
-  
   foreach($GLOBALS['my-routes'] as $route){
     $route_segments = explode('/', $route->url);
     $uri_segments = explode('/', $uri);
