@@ -69,11 +69,11 @@ add_action('init', function(){
     $uri_segments = explode('/', $uri);
     $route_values = array();
 
-    if(strpos($route->url, ':') !== FALSE){
-      if(count($route_segments) != count($uri_segments)){
-        continue;
-      }
+    if(count($route_segments) != count($uri_segments)){
+      continue;
+    }
 
+    if(strpos($route->url, ':') !== FALSE){
       $route_match = TRUE;
 
       foreach($route_segments as $i => $route_segment){
