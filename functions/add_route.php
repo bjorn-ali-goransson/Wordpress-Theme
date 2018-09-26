@@ -91,7 +91,6 @@ add_action('init', function(){
       }
 
       if(!$route_match){
-        echo 'no';
         continue;
       }
 
