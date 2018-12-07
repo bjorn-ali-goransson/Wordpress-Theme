@@ -14,7 +14,10 @@ function only_enable_singular_requests(){
       return;
     }
     
-    wp_redirect(home_url());
+    status_header( 404 );
+    nocache_headers();
+    include( get_query_template( '404' ) );
+    
     exit;
   });
 }
