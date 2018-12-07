@@ -64,60 +64,63 @@ add_action('init', function(){
   $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
   $uri = on_iis() ? utf8_encode($_SERVER['REQUEST_URI']) : urldecode($_SERVER['REQUEST_URI']);
 
+  if(strpos($uri, $site_url) === 0){
+    $uri = substr($uri, strlen($site_url));
+  }
+  
+  if(strpos($uri, '?') !== FALSE){
+    $uri = substr($uri, 0, strpos($uri, '?'));
+  }
+  
+  $uri_segments = explode('/', $uri);
+
   foreach($GLOBALS['my-routes'] as $route){
     $route_segments = explode('/', $route->url);
-    $uri_segments = explode('/', $uri);
     $route_values = array();
-
+    
     if(count($route_segments) != count($uri_segments)){
       continue;
     }
+    
+    $route_match = TRUE;
 
-    if(strpos($route->url, ':') !== FALSE){
-      $route_match = TRUE;
+    foreach($route_segments as $i => $route_segment){
+      $uri_segment = $uri_segments[$i];
 
-      foreach($route_segments as $i => $route_segment){
-        $uri_segment = $uri_segments[$i];
-
-        if(strpos($route_segment, ':') !== FALSE) {
-          continue;
-        }
-
-        if($route_segment === $uri_segment){
-          continue;
-        }
-        
-        $route_match = FALSE;
-      }
-
-      if(!$route_match){
+      if(strpos($route_segment, ':') !== FALSE) {
         continue;
       }
 
-      foreach($route_segments as $i => $route_segment){
-        $uri_segment = $uri_segments[$i];
-
-        if(strpos($route_segment, ':') !== 0) {
-          continue;
-        }
-
-        $route_values[substr($route_segment, 1)] = $uri_segment;
+      if($route_segment === $uri_segment){
+        continue;
       }
-
-      $new_route_values = array();
       
-      $reflection = new ReflectionFunction($route->callback);
-
-      foreach ($reflection->getParameters() as $parameter) {
-        $new_route_values[] = $route_values[$parameter->name];
-      }
-
-      $route_values = $new_route_values;
+      $route_match = FALSE;
     }
 
-    if(empty($route_values) && strpos($uri, $site_url . $route->url) !== 0){
+    if(!$route_match){
       continue;
     }
+
+    foreach($route_segments as $i => $route_segment){
+      $uri_segment = $uri_segments[$i];
+
+      if(strpos($route_segment, ':') !== 0) {
+        continue;
+      }
+
+      $route_values[substr($route_segment, 1)] = $uri_segment;
+    }
+
+    $new_route_values = array();
+    
+    $reflection = new ReflectionFunction($route->callback);
+
+    foreach ($reflection->getParameters() as $parameter) {
+      $new_route_values[] = $route_values[$parameter->name];
+    }
+
+    $route_values = $new_route_values;
     
     if(!isset($route->options['public']) && !is_user_logged_in()){
       continue;
