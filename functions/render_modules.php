@@ -14,7 +14,7 @@ function render_module_example_code($variable_name, $class_name, $value, $indent
 
     $value = array_shift($value);
 
-    $contents .= render_module_example_code('$item', $class_name, $value, $indent + 1);
+    $contents .= render_module_example_code('$item', $class_name, $value, $indent + 3);
 
     $contents .= str_repeat('  ', $indent) . "    <?php\n";
     $contents .= str_repeat('  ', $indent) . "  }\n";
