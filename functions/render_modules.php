@@ -39,6 +39,12 @@ function render_module_example_code($variable_name, $class_name, $value, $indent
     }
 
     if(is_array($value)){
+      if(array_key_exists('url', $value) && array_key_exists('target', $value) && array_key_exists('title', $value)){
+        $contents .= str_repeat('  ', $indent) . "<a class=\"$property_class_name\" href=\"<?= {$variable_name}['url'] ?>\" target=\"<?= {$variable_name}['target'] ?>\"><?= {$variable_name}['title'] ?></a>\n";
+
+        continue;
+      }
+
       $property_variable_name = $variable_name . "['$key']";
 
       $contents .= str_repeat('  ', $indent) . "<div class=\"$property_class_name\">\n";
