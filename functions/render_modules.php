@@ -28,7 +28,11 @@ function render_module_example_code($variable_name, $class_name, $value, $indent
       continue;
     }
 
-    $property_class_name = $class_name . '-' . str_replace('_', '-', $key);
+    if($class_name == $key && is_array($value) && substr($class_name, -1) == 's'){
+      $property_class_name = substr($class_name, 0, -1);
+    } else {
+      $property_class_name = $class_name . '-' . str_replace('_', '-', $key);
+    }
 
     if(is_numeric($value)) {
       $contents .= str_repeat('  ', $indent) . "<div class=\"$property_class_name\" responsive-background-image>\n";
