@@ -14,7 +14,7 @@ $screen-tn: 576px;
 $screen-sm: 768px;
 $screen-md: 992px;
 $screen-lg: 1200px;
-$screen-hg: 1400px;
+$screen-hg: 1500px;
 
 
 
@@ -23,8 +23,6 @@ $screen-hg: 1400px;
 body {
     margin: 0;
     background: white;
-    font-family: $font-family;
-    line-height: 1.4;
 }
 
 a {
@@ -67,6 +65,15 @@ input, textarea, select, button {
 th {
     text-align: left;
     vertical-align: top;
+}
+
+
+
+/* DOCUMENT */
+
+html {
+    font-family: $font-family;
+    line-height: 1.4;
 }
 
 
