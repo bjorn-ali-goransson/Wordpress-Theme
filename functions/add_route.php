@@ -64,7 +64,7 @@ add_action('init', function(){
   $site_url = $slash_position !== FALSE ? substr($site_url, $slash_position) : '';
   $uri = on_iis() ? utf8_encode($_SERVER['REQUEST_URI']) : urldecode($_SERVER['REQUEST_URI']);
 
-  if(strpos($uri, $site_url) === 0){
+  if($site_url != '' && strpos($uri, $site_url) === 0){
     $uri = substr($uri, strlen($site_url));
   }
   
